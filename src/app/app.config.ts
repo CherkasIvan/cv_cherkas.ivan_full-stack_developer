@@ -21,8 +21,8 @@ import { Observable } from 'rxjs';
 
 import { providePrimeNG } from 'primeng/config';
 
+import { COLOR_THEME } from '@core/theme/color-theme.const';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import Aura from '@primeuix/themes/aura';
 
 import { routes } from './app.routes';
 
@@ -57,7 +57,7 @@ export const appConfig: ApplicationConfig = {
         },
         providePrimeNG({
             theme: {
-                preset: Aura,
+                preset: COLOR_THEME,
                 options: {
                     prefix: 'p',
                     darkModeSelector: '.dark-mode',
@@ -67,7 +67,7 @@ export const appConfig: ApplicationConfig = {
         }),
         importProvidersFrom(
             TranslateModule.forRoot({
-                defaultLanguage: 'en',
+                fallbackLang: 'en',
                 loader: {
                     provide: TranslateLoader,
                     useFactory: createTranslateLoader,

@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cv-home-page',
-  imports: [],
-  templateUrl: './home-page.html',
-  styleUrl: './home-page.scss',
+    selector: 'cv-home-page',
+    standalone: true,
+    imports: [],
+    templateUrl: './home-page.html',
+    styleUrl: './home-page.scss',
 })
-export class HomePage {
-
-}
+export class HomePage {}

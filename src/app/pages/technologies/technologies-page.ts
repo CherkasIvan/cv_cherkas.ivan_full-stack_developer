@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cv-technologies-page',
-  imports: [],
-  templateUrl: './technologies-page.html',
-  styleUrl: './technologies-page.scss',
+    selector: 'cv-technologies-page',
+    standalone: true,
+    imports: [],
+    templateUrl: './technologies-page.html',
+    styleUrl: './technologies-page.scss',
 })
-export class TechnologiesPage {
-
-}
+export class TechnologiesPage {}

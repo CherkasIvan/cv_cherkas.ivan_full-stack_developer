@@ -1,0 +1,62 @@
+:host {
+    display: block;
+    min-height: 100vh;
+}
+
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+    transition: var(--transition-theme);
+    border-bottom: 1px solid var(--color-secondary);
+    background: var(--color-bg);
+    padding: 1rem;
+
+    .dark-mode & {
+        backdrop-filter: blur(10px);
+        background: rgba(15, 23, 42, 0.8);
+    }
+}
+
+.theme-label {
+    transition: var(--transition-theme);
+    cursor: pointer;
+    color: var(--color-text);
+    font-size: var(--font-size-small);
+    font-family: var(--font-accent);
+
+    &:hover {
+        color: var(--color-primary);
+    }
+}
+
+// Улучшенные стили для toggle switch
+::ng-deep {
+    .p-toggleswitch {
+        &.p-focus {
+            .p-toggleswitch-slider {
+                box-shadow: 0 0 0 2px var(--color-primary);
+            }
+        }
+
+        .p-toggleswitch-slider {
+            transition: var(--transition-theme);
+            border: 2px solid var(--color-secondary);
+            background: var(--color-bg);
+
+            &:before {
+                transition: var(--transition-theme);
+                background: var(--color-secondary);
+            }
+        }
+
+        &.p-toggleswitch-checked {
+            .p-toggleswitch-slider {
+                background: var(--color-primary);
+
+                &:before {
+                    background: var(--color-bg);
+                }
+            }
+        }
+    }
+}

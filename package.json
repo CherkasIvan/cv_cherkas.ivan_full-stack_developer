@@ -8,7 +8,7 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "deploy": "npx angular-cli-ghpages --dir=dist/cv_cherkas.ivan_full-stack_developer/browser --name='CherkasIvan' --email=distor6on@yandex.ru",
-        "predeploy": "ng build --configuration production"
+        "predeploy": "ng build --configuration production --base-href /cv_cherkas.ivan_full-stack_developer/"
     },
     "prettier": {
         "printWidth": 120,
