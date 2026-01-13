@@ -1,1 +1,158 @@
 /* You can add global styles to this file, and also import other style files */
+// CSS переменные для светлой темы
+:root {
+    // Шрифты
+    --font-primary:
+        'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+        sans-serif;
+    --font-accent: 'Space Grotesk', 'Inter', monospace;
+
+    // Размеры шрифтов
+    --font-size-base: 18px;
+    --font-size-large: 24px;
+    --font-size-small: 16px;
+    --font-size-xlarge: 32px;
+
+    // Цвета светлой темы
+    --color-bg: #ffffff;
+    --color-text: #1f2937;
+    --color-primary: #3b82f6;
+    --color-secondary: #10b981;
+
+    // Transition
+    --transition-theme: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.3s ease;
+    --transition-slow: all 0.8s ease;
+}
+
+// CSS переменные для темной темы
+.dark-mode {
+    // Шрифты (другие в темной теме)
+    --font-primary:
+        'Space Grotesk', monospace, -apple-system, BlinkMacSystemFont,
+        'Segoe UI', Roboto;
+    --font-accent: 'Inter', sans-serif;
+
+    // Размеры шрифтов (больше в темной теме)
+    --font-size-base: 20px;
+    --font-size-large: 28px;
+    --font-size-small: 18px;
+    --font-size-xlarge: 36px;
+
+    // Цвета темной темы
+    --color-bg: #0f172a;
+    --color-text: #f1f5f9;
+    --color-primary: #60a5fa;
+    --color-secondary: #34d399;
+}
+
+// Глобальные стили с плавными переходами
+* {
+    transition:
+        background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Тело документа
+body {
+    transition: var(--transition-theme);
+    margin: 0;
+    background-color: var(--color-bg);
+    padding: 0;
+    min-height: 100vh;
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    font-family: var(--font-primary);
+}
+
+// Для заголовков используем акцентный шрифт
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    font-weight: 600;
+    font-family: var(--font-accent);
+
+    // Увеличиваем размеры в темной теме
+    .dark-mode & {
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+}
+
+h1 {
+    font-size: var(--font-size-xlarge);
+
+    .dark-mode & {
+        font-size: calc(var(--font-size-xlarge) * 1.2);
+    }
+}
+
+h2 {
+    font-size: var(--font-size-large);
+
+    .dark-mode & {
+        font-size: calc(var(--font-size-large) * 1.15);
+    }
+}
+
+// Специфичные стили для PrimeNG компонентов
+.p-component {
+    transition: var(--transition-theme);
+    font-family: var(--font-primary);
+}
+
+.p-menubar,
+.p-button,
+.p-inputtext {
+    font-size: var(--font-size-base);
+    font-family: var(--font-primary);
+
+    .dark-mode & {
+        font-size: calc(var(--font-size-base) * 1.05);
+        font-family: var(--font-accent);
+    }
+}
+
+// Стили для контента
+.content-area {
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+
+    .dark-mode & {
+        font-size: var(--font-size-base);
+        line-height: 1.8;
+        letter-spacing: 0.2px;
+    }
+}
+
+// Класс для плавного перехода при переключении темы
+.theme-transition {
+    transition: var(--transition-theme) !important;
+}
+
+// Анимация перехода темы
+@keyframes themeSwitch {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(0.98);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.theme-switching {
+    animation: themeSwitch 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}

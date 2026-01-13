@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     selector: 'cv-education-page',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
     imports: [],
     templateUrl: './education-page.html',
     styleUrl: './education-page.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EducationPage {}
