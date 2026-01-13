@@ -1,0 +1,11 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+@Component({
+    selector: 'cv-technologies-page',
+    standalone: true,
+    imports: [],
+    templateUrl: './technologies-page.html',
+    styleUrl: './technologies-page.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class TechnologiesPage {}

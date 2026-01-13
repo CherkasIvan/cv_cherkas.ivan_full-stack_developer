@@ -1,0 +1,17 @@
+<div class="container">
+    <p-menubar
+        [model]="items"
+        [class]="'theme-transition'"
+    />
+
+    <div class="theme-switch-container">
+        <p-toggleswitch
+            [(ngModel)]="isDarkMode"
+            (onChange)="toggleDarkMode()"
+        />
+    </div>
+
+    <ng-content></ng-content>
+
+    <cv-footer-media-links></cv-footer-media-links>
+</div>
