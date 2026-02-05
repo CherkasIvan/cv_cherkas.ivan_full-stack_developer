@@ -22,7 +22,10 @@
                 "build": {
                     "builder": "@angular/build:application",
                     "options": {
-                        "outputPath": "dist/cv_cherkas.ivan_full-stack_developer",
+                        "outputPath": {
+                            "base": "dist/cv_cherkas.ivan_full-stack_developer",
+                            "browser": "browser"
+                        },
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": ["zone.js"],
@@ -36,7 +39,12 @@
                             {
                                 "glob": "**/*",
                                 "input": "src/assets/i18n",
-                                "output": "assets/i18n"
+                                "output": "/assets/i18n"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/manifest.webmanifest",
+                                "output": "/"
                             }
                         ],
                         "styles": [
@@ -44,7 +52,7 @@
                             "node_modules/primeicons/primeicons.css"
                         ],
                         "scripts": [],
-                        "serviceWorker": "ngsw-config.json"
+                        "serviceWorker": "src/ngsw-config.json"
                     },
                     "configurations": {
                         "production": {
@@ -72,11 +80,21 @@
                                 "scripts": true,
                                 "styles": {
                                     "minify": true,
-                                    "inlineCritical": false
+                                    "inlineCritical": true
                                 },
                                 "fonts": true
                             },
-                            "sourceMap": false
+                            "sourceMap": {
+                                "scripts": false,
+                                "styles": false,
+                                "vendor": false,
+                                "hidden": false
+                            },
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "serviceWorker": true
                         },
                         "netlify": {
                             "fileReplacements": [
@@ -103,11 +121,21 @@
                                 "scripts": true,
                                 "styles": {
                                     "minify": true,
-                                    "inlineCritical": false
+                                    "inlineCritical": true
                                 },
                                 "fonts": true
                             },
-                            "sourceMap": false
+                            "sourceMap": {
+                                "scripts": false,
+                                "styles": false,
+                                "vendor": false,
+                                "hidden": false
+                            },
+                            "namedChunks": false,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "serviceWorker": true
                         },
                         "development": {
                             "fileReplacements": [
@@ -119,13 +147,22 @@
                             "baseHref": "/",
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "namedChunks": true,
+                            "vendorChunk": true,
+                            "buildOptimizer": false,
+                            "serviceWorker": false
                         }
                     },
                     "defaultConfiguration": "production"
                 },
                 "serve": {
                     "builder": "@angular/build:dev-server",
+                    "options": {
+                        "port": 4200,
+                        "open": true,
+                        "host": "localhost"
+                    },
                     "configurations": {
                         "production": {
                             "buildTarget": "cv_cherkas.ivan_full-stack_developer:build:production"
@@ -138,6 +175,12 @@
                         }
                     },
                     "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "buildTarget": "cv_cherkas.ivan_full-stack_developer:build"
+                    }
                 },
                 "test": {
                     "builder": "@angular/build:unit-test",

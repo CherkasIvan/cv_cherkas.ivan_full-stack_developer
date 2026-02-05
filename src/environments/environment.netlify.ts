@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    baseHref: '/',
+    baseHref: '/', // Netlify размещает в корне
     platform: 'netlify',
-    apiUrl: 'https://your-api.netlify.app',
+    apiUrl: window.location.origin, // Автоматически определяет текущий домен
 };
