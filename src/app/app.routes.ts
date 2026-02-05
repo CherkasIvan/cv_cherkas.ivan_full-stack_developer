@@ -1,44 +1,55 @@
 import { Routes } from '@angular/router';
 
-import { EducationPageComponent } from '@pages/education/education-page.component';
-import { ExperiencePageComponent } from '@pages/experience/experience-page.component';
-import { HomePageComponent } from '@pages/home/home-page.component';
-import { ProjectsPageComponent } from '@pages/projects/projects-page.component';
-import { TechnologiesPageComponent } from '@pages/technologies/technologies-page.component';
+import { AppRoutes } from './core/enum/routes.enum';
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: AppRoutes.HOME,
         pathMatch: 'full',
     },
     {
-        path: 'home',
-        component: HomePageComponent,
+        path: AppRoutes.HOME,
+        loadComponent: () =>
+            import('./pages/home/home-page.component').then(
+                (m) => m.HomePageComponent,
+            ),
         data: { title: 'Главная' },
     },
     {
-        path: 'projects',
-        component: ProjectsPageComponent,
+        path: AppRoutes.PROJECTS,
+        loadComponent: () =>
+            import('./pages/projects/projects-page.component').then(
+                (m) => m.ProjectsPageComponent,
+            ),
         data: { title: 'Проекты' },
     },
     {
-        path: 'technologies',
-        component: TechnologiesPageComponent,
+        path: AppRoutes.TECHNOLOGIES,
+        loadComponent: () =>
+            import('./pages/technologies/technologies-page.component').then(
+                (m) => m.TechnologiesPageComponent,
+            ),
         data: { title: 'Технологии' },
     },
     {
-        path: 'work-experience',
-        component: ExperiencePageComponent,
+        path: AppRoutes.EXPERIENCE,
+        loadComponent: () =>
+            import('./pages/experience/experience-page.component').then(
+                (m) => m.ExperiencePageComponent,
+            ),
         data: { title: 'Опыт работы' },
     },
     {
-        path: 'education',
-        component: EducationPageComponent,
-        data: { title: 'Образование' },
+        path: AppRoutes.DOWNLOAD_CV,
+        loadComponent: () =>
+            import('./pages/download-cv/download-cv.component').then(
+                (m) => m.DownloadCvComponent,
+            ),
+        data: { title: 'Скачать CV' },
     },
     {
         path: '**',
-        redirectTo: '/home',
+        redirectTo: AppRoutes.HOME,
     },
 ];

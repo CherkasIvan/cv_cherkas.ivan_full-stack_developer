@@ -1,5 +1,9 @@
 {
     "NAVIGATION": {
+        "NAVIGATION": "Навигация",
+        "THEME": "Темная тема",
+        "LANGUAGE": "Язык",
+        "SEARCH": "Поиск",
         "HOME": "Главная",
         "PROJECTS": "Проекты",
         "TECHNOLOGIES": "Технологии",

@@ -1,33 +1,43 @@
 <div class="layout">
     @if (showHeader()) {
-    <cv-mobile-header (menuClick)="mobileMenuVisible.set(true)" />
-    } @if (showSidebar()) {
-    <cv-navigation-side-bar />
+        <cv-mobile-header (menuClick)="mobileMenuVisible.set(true)" />
+    }
+    @if (showSidebar()) {
+        <cv-navigation-side-bar />
     } @else {
-    <cv-navigation-side-bar
-        [drawerVisible]="mobileMenuVisible()"
-        (drawerVisibleChange)="mobileMenuVisible.set($event)"
-    />
+        <cv-navigation-side-bar
+            [drawerVisible]="mobileMenuVisible()"
+            (drawerVisibleChange)="mobileMenuVisible.set($event)"
+        />
     }
 
     <div class="layout-wrapper">
         <main class="fieldset-container">
+            <!-- Левый Fieldset с кастомными токенами -->
             <p-fieldset
                 legend="Left"
                 class="left"
+                [dt]="fieldsetTokens().leftFieldset"
             >
                 <ng-content />
             </p-fieldset>
 
+            <!-- Правый Fieldset с кастомными токенами -->
             <p-fieldset
                 legend="Right"
                 class="right"
+                [dt]="fieldsetTokens().rightFieldset"
             >
                 <p class="m-0">Lorem ipsum dolor sit amet...</p>
             </p-fieldset>
         </main>
 
-        <footer class="footer-container">
+        <!-- Футер с динамическими классами для темы -->
+        <footer
+            class="footer-container"
+            [class.footer-light]="!themeService.isDarkMode()"
+            [class.footer-dark]="themeService.isDarkMode()"
+        >
             <cv-footer-media-links />
         </footer>
     </div>

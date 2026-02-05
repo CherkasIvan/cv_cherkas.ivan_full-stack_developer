@@ -56,6 +56,12 @@
 
             <ng-template #end>
                 <div class="flex items-center gap-4">
+                    <!-- Language Switcher -->
+                    <div class="language-toggle flex items-center gap-2">
+                        <cv-language-switcher></cv-language-switcher>
+                    </div>
+
+                    <!-- Theme Switcher -->
                     <div class="theme-toggle flex items-center gap-2">
                         <i class="pi pi-moon"></i>
                         <p-toggleswitch
@@ -65,13 +71,15 @@
                         />
                     </div>
 
+                    <!-- Search Input -->
                     <input
                         type="text"
                         pInputText
-                        placeholder="Search"
+                        [placeholder]="'NAVIGATION.SEARCH' | translate"
                         class="search-input"
                     />
 
+                    <!-- Avatar -->
                     <p-avatar
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                         shape="circle"

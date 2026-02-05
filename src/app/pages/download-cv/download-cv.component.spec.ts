@@ -3,21 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DownloadCv } from './download-cv';
 
 describe('DownloadCv', () => {
-  let component: DownloadCv;
-  let fixture: ComponentFixture<DownloadCv>;
+    let component: DownloadCv;
+    let fixture: ComponentFixture<DownloadCv>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [DownloadCv]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [DownloadCv],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(DownloadCv);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+        fixture = TestBed.createComponent(DownloadCv);
+        component = fixture.componentInstance;
+        await fixture.whenStable();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

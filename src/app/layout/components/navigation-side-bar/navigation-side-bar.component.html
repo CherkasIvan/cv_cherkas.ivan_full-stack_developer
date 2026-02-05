@@ -2,18 +2,26 @@
     <aside class="desktop-sidebar">
         <nav class="sidebar-content">
             <div class="sidebar-header">
-                <h3 class="m-0">Навигация</h3>
+                <h3 class="m-0">{{ 'NAVIGATION.NAVIGATION' | translate }}</h3>
             </div>
 
-            <div
-                class="theme-switch-container flex align-items-center justify-content-between p-3"
-            >
+            <!-- Language Switcher -->
+            <div class="language-switch-container flex align-items-center justify-content-between p-3">
+                <label class="flex align-items-center gap-2">
+                    <i class="pi pi-globe"></i>
+                    <span>{{ 'NAVIGATION.LANGUAGE' | translate }}</span>
+                </label>
+                <cv-language-switcher></cv-language-switcher>
+            </div>
+
+            <!-- Theme Switcher -->
+            <div class="theme-switch-container flex align-items-center justify-content-between p-3">
                 <label
                     for="themeToggle"
                     class="flex align-items-center gap-2"
                 >
                     <i class="pi pi-moon"></i>
-                    <span>Темная тема</span>
+                    <span>{{ 'NAVIGATION.THEME' | translate }}</span>
                 </label>
 
                 <p-toggleswitch
@@ -23,6 +31,7 @@
                 />
             </div>
 
+            <!-- Navigation Menu -->
             <div class="navigation-menu mt-4">
                 @for (item of navigationItems(); track item.label) {
                     <a
@@ -45,7 +54,7 @@
         <p-drawer
             [visible]="drawerVisible()"
             (onHide)="closeDrawer()"
-            header="Навигация"
+            [header]="drawerHeader()"
             position="left"
             [style]="{ width: '320px' }"
             [modal]="true"
@@ -53,15 +62,23 @@
             [showCloseIcon]="true"
         >
             <div class="drawer-content">
-                <div
-                    class="theme-switch-container flex align-items-center justify-content-between p-3"
-                >
+                <!-- Language Switcher -->
+                <div class="language-switch-container flex align-items-center justify-content-between p-3">
+                    <label class="flex align-items-center gap-2">
+                        <i class="pi pi-globe"></i>
+                        <span>{{ 'NAVIGATION.LANGUAGE' | translate }}</span>
+                    </label>
+                    <cv-language-switcher></cv-language-switcher>
+                </div>
+
+                <!-- Theme Switcher -->
+                <div class="theme-switch-container flex align-items-center justify-content-between p-3">
                     <label
                         for="themeToggleMobile"
                         class="flex align-items-center gap-2"
                     >
                         <i class="pi pi-moon"></i>
-                        <span>Темная тема</span>
+                        <span>{{ 'NAVIGATION.THEME' | translate }}</span>
                     </label>
 
                     <p-toggleswitch
@@ -71,6 +88,7 @@
                     />
                 </div>
 
+                <!-- Navigation Menu -->
                 <div class="navigation-menu mt-4">
                     @for (item of navigationItems(); track item.label) {
                         <a

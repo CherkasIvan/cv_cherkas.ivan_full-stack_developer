@@ -1,5 +1,9 @@
 {
     "NAVIGATION": {
+        "NAVIGATION": "Navigation",
+        "THEME": "Dark theme",
+        "LANGUAGE": "Language",
+        "SEARCH": "Search",
         "HOME": "Home",
         "PROJECTS": "Projects",
         "TECHNOLOGIES": "Technologies",

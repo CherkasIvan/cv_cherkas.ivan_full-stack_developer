@@ -1,0 +1,60 @@
+:host {
+    display: block;
+
+    ::ng-deep {
+        .p-autocomplete {
+            width: 100%;
+
+            .p-autocomplete-input {
+                border: 1px solid var(--surface-300);
+                border-radius: 6px;
+                background: var(--surface-0);
+                padding: 0.5rem 0.75rem;
+                width: 100%;
+                color: var(--text-color);
+
+                &:hover {
+                    border-color: var(--primary-color);
+                }
+
+                &:focus {
+                    outline: none;
+                    box-shadow: 0 0 0 2px var(--primary-color);
+                    border-color: var(--primary-color);
+                }
+            }
+
+            .p-autocomplete-panel {
+                margin-top: 0.25rem;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                border: 1px solid var(--surface-300);
+                border-radius: 6px;
+                background: var(--surface-0);
+
+                .p-autocomplete-items {
+                    padding: 0.25rem;
+
+                    .p-autocomplete-item {
+                        margin-bottom: 0.125rem;
+                        border-radius: 4px;
+                        padding: 0.5rem 0.75rem;
+
+                        &:hover {
+                            background: var(--surface-100);
+                            color: var(--text-color);
+                        }
+
+                        &.p-highlight {
+                            background: var(--primary-color);
+                            color: white;
+
+                            .text-color-secondary {
+                                color: rgba(255, 255, 255, 0.8);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -13,6 +13,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FieldsetModule } from 'primeng/fieldset';
 
 import { VIEWPORT_BREAKPOINTS } from '@core/constant/viewport.const';
+import { ThemeService } from '@core/service/theme/theme.service';
+import { LAYOUT_FIELDSET_STYLES } from '@core/theme/components/fieldset.tokens';
 
 import { FooterMediaLinksComponent } from './components/footer-media-links/footer-media-links.component';
 import { MobileHeaderComponent } from './components/mobile-header/mobile-header.component';
@@ -34,19 +36,25 @@ import { NavigationSideBarComponent } from './components/navigation-side-bar/nav
 export class LayoutComponent implements OnInit {
     private readonly destroyRef = inject(DestroyRef);
     private readonly viewportBreakpoints = VIEWPORT_BREAKPOINTS;
+    readonly themeService = inject(ThemeService);
 
     readonly isMobileView = signal<boolean>(false);
+    readonly mobileMenuVisible = signal<boolean>(false); // Исправленный тип
 
     readonly showHeader = computed(() => this.isMobileView());
     readonly showSidebar = computed(() => !this.isMobileView());
-    mobileMenuVisible: any;
+
+    // Токены для Fieldset с учетом темы
+    readonly fieldsetTokens = computed(() => {
+        const isDark = this.themeService.isDarkMode();
+        return isDark
+            ? LAYOUT_FIELDSET_STYLES.darkModeOverrides
+            : LAYOUT_FIELDSET_STYLES;
+    });
 
     ngOnInit(): void {
         this.checkViewport();
-
-        if (typeof window !== 'undefined') {
-            window.addEventListener('resize', this.handleResize.bind(this));
-        }
+        this.setupResizeListener();
     }
 
     @HostListener('window:resize')
@@ -61,9 +69,15 @@ export class LayoutComponent implements OnInit {
         );
     }
 
-    ngOnDestroy(): void {
+    private setupResizeListener(): void {
         if (typeof window !== 'undefined') {
-            window.removeEventListener('resize', this.handleResize.bind(this));
+            window.addEventListener('resize', this.handleResize.bind(this));
+            this.destroyRef.onDestroy(() => {
+                window.removeEventListener(
+                    'resize',
+                    this.handleResize.bind(this),
+                );
+            });
         }
     }
 }

@@ -1,3 +1,5 @@
+import { MenuItem } from 'primeng/api';
+
 import {
     DestroyRef,
     Injectable,
@@ -7,8 +9,6 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { MenuItem } from 'primeng/api';
-
 import {
     AVAILABLE_LANGUAGES,
     TRANSLATION_CONFIG,
@@ -16,6 +16,7 @@ import {
 import { Language } from '@core/interfaces/language.interface';
 import { MediaLink } from '@core/interfaces/media-link.interface';
 import { NavigationItem } from '@core/interfaces/navigation-item.interface';
+
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({ providedIn: 'root' })

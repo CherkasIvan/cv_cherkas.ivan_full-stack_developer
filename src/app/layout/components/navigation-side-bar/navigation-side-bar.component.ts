@@ -1,3 +1,7 @@
+import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'primeng/drawer';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+
 import { CommonModule } from '@angular/common';
 import {
     Component,
@@ -13,13 +17,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-
 import { DRAWER_NAVIGATION_ITEMS } from '@core/constant/navigation.const';
 import { NavigationItem } from '@core/interfaces/navigation-item.interface';
 import { ThemeService } from '@core/service/theme/theme.service';
+import { TranslationService } from '@core/service/translation/translation.service';
+
+import { LanguageSwitcherComponent } from '@shared/components/language-switcher/language-switcher.component/language-switcher.component';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'cv-navigation-side-bar',
@@ -28,9 +33,11 @@ import { ThemeService } from '@core/service/theme/theme.service';
         CommonModule,
         RouterModule,
         FormsModule,
+        TranslateModule,
         DrawerModule,
         ButtonModule,
         ToggleSwitchModule,
+        LanguageSwitcherComponent,
     ],
     templateUrl: './navigation-side-bar.component.html',
     styleUrls: ['./navigation-side-bar.component.scss'],
@@ -39,9 +46,9 @@ export class NavigationSideBarComponent implements OnInit {
     private readonly router = inject(Router);
     private readonly destroyRef = inject(DestroyRef);
     readonly themeService = inject(ThemeService);
+    readonly translationService = inject(TranslationService);
 
     drawerVisible = input<boolean>(false);
-
     drawerVisibleChange = output<boolean>();
 
     readonly navigationItems = signal<NavigationItem[]>(
@@ -49,6 +56,10 @@ export class NavigationSideBarComponent implements OnInit {
     );
 
     readonly isDesktopMode = computed(() => !this.drawerVisible());
+
+    readonly drawerHeader = computed(() =>
+        this.translationService.translateKey('NAVIGATION.NAVIGATION'),
+    );
 
     ngOnInit(): void {
         this.router.events

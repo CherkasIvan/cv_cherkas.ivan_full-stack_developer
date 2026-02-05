@@ -23,15 +23,11 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
+import { createTranslateLoader } from '@core/service/translate-loader-creator/translate-loader-creator.service';
 import { COLOR_THEME } from '@core/theme/color-theme.const';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
-
-export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -64,7 +60,7 @@ export const appConfig: ApplicationConfig = {
         }),
         importProvidersFrom(
             TranslateModule.forRoot({
-                defaultLanguage: 'en',
+                fallbackLang: 'en',
                 loader: {
                     provide: TranslateLoader,
                     useFactory: createTranslateLoader,
