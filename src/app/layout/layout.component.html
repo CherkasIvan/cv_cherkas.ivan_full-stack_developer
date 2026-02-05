@@ -1,0 +1,34 @@
+<div class="layout">
+    @if (showHeader()) {
+    <cv-mobile-header (menuClick)="mobileMenuVisible.set(true)" />
+    } @if (showSidebar()) {
+    <cv-navigation-side-bar />
+    } @else {
+    <cv-navigation-side-bar
+        [drawerVisible]="mobileMenuVisible()"
+        (drawerVisibleChange)="mobileMenuVisible.set($event)"
+    />
+    }
+
+    <div class="layout-wrapper">
+        <main class="fieldset-container">
+            <p-fieldset
+                legend="Left"
+                class="left"
+            >
+                <ng-content />
+            </p-fieldset>
+
+            <p-fieldset
+                legend="Right"
+                class="right"
+            >
+                <p class="m-0">Lorem ipsum dolor sit amet...</p>
+            </p-fieldset>
+        </main>
+
+        <footer class="footer-container">
+            <cv-footer-media-links />
+        </footer>
+    </div>
+</div>

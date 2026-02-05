@@ -1,0 +1,33 @@
+:root {
+    --color-primary-50: 239 246 255;
+    --color-primary-100: 219 234 254;
+    --color-primary-500: 59 130 246;
+    --color-primary-900: 30 58 138;
+
+    --color-gray-50: 249 250 251;
+    --color-gray-100: 243 244 246;
+    --color-gray-800: 31 41 55;
+    --color-gray-900: 17 24 39;
+
+    --surface-ground: #f8f9fa;
+    --surface-card: #ffffff;
+    --surface-border: #e5e7eb;
+    --text-color: #1f2937;
+}
+
+.cv-dark {
+    --color-primary-50: 30 41 59;
+    --color-primary-100: 51 65 85;
+    --color-primary-500: 191 219 254;
+    --color-primary-900: 37 99 235;
+
+    --color-gray-50: 17 24 39;
+    --color-gray-100: 31 41 55;
+    --color-gray-800: 243 244 246;
+    --color-gray-900: 249 250 251;
+
+    --surface-ground: #111827;
+    --surface-card: #1f2937;
+    --surface-border: #374151;
+    --text-color: #f9fafb;
+}

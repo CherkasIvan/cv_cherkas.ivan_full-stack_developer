@@ -1,0 +1,36 @@
+.layout {
+    display: flex;
+    background-color: var(--surface-ground);
+    min-height: 100vh;
+
+    .layout-wrapper {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .fieldset-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+            gap: 1.5rem;
+            padding: 1.5rem;
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .left,
+            .right {
+                height: fit-content;
+            }
+        }
+
+        .footer-container {
+            border-top: 1px solid var(--surface-border);
+            background-color: var(--surface-section);
+            padding: 1rem;
+        }
+    }
+}

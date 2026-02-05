@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 
-import { EducationPage } from '@pages/education/education-page';
-import { ExperiencePage } from '@pages/experience/experience-page';
-import { HomePage } from '@pages/home/home-page';
-import { ProjectsPage } from '@pages/projects/projects-page';
-import { TechnologiesPage } from '@pages/technologies/technologies-page';
+import { EducationPageComponent } from '@pages/education/education-page.component';
+import { ExperiencePageComponent } from '@pages/experience/experience-page.component';
+import { HomePageComponent } from '@pages/home/home-page.component';
+import { ProjectsPageComponent } from '@pages/projects/projects-page.component';
+import { TechnologiesPageComponent } from '@pages/technologies/technologies-page.component';
 
 export const routes: Routes = [
     {
@@ -14,27 +14,27 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: HomePage,
+        component: HomePageComponent,
         data: { title: 'Главная' },
     },
     {
         path: 'projects',
-        component: ProjectsPage,
+        component: ProjectsPageComponent,
         data: { title: 'Проекты' },
     },
     {
         path: 'technologies',
-        component: TechnologiesPage,
+        component: TechnologiesPageComponent,
         data: { title: 'Технологии' },
     },
     {
         path: 'work-experience',
-        component: ExperiencePage,
+        component: ExperiencePageComponent,
         data: { title: 'Опыт работы' },
     },
     {
         path: 'education',
-        component: EducationPage,
+        component: EducationPageComponent,
         data: { title: 'Образование' },
     },
     {

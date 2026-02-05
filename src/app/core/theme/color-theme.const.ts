@@ -1,5 +1,3 @@
-import PrimeUI from 'tailwindcss-primeui';
-
 import { definePreset } from '@primeuix/themes';
 import { $dt } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
@@ -51,5 +49,4 @@ export const COLOR_THEME = definePreset(Aura, {
             },
         },
     },
-    plugins: [PrimeUI],
 });
