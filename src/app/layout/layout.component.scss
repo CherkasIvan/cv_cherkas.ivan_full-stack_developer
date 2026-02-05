@@ -1,0 +1,110 @@
+.layout {
+    display: flex;
+    background-color: var(--surface-ground);
+    min-height: 100vh;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    .layout-wrapper {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .fieldset-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex: 1;
+            gap: 1.5rem;
+            padding: 1.5rem;
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .left,
+            .right {
+                transition: all 0.3s ease;
+                height: fit-content;
+
+                &:hover {
+                    transform: translateY(-4px);
+                    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+                }
+            }
+        }
+
+        .footer-container {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid var(--surface-border);
+            padding: 1rem;
+
+            // Светлая тема - градиент
+            &.footer-light {
+                border-color: var(
+                    --p-footer-borderColor,
+                    rgba(255, 255, 255, 0.2)
+                );
+                background: var(
+                    --p-footer-background,
+                    linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+                );
+                color: var(--p-footer-textColor, #ffffff);
+            }
+
+            // Темная тема - фиолетовый
+            &.footer-dark {
+                border-color: var(--p-footer-borderColor, var(--purple-600));
+                background: var(--p-footer-background, var(--purple-700));
+                color: var(--p-footer-textColor, #ffffff);
+            }
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            // Анимация градиента для светлой темы
+            &.footer-light::before {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                animation: gradient-shift 3s ease infinite;
+                background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+                background-size: 200% 100%;
+                height: 3px;
+                content: '';
+            }
+
+            // Анимация градиента для темной темы
+            &.footer-dark::before {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                animation: gradient-shift 3s ease infinite;
+                background: linear-gradient(90deg, #7c3aed, #8b5cf6, #7c3aed);
+                background-size: 200% 100%;
+                height: 3px;
+                content: '';
+            }
+        }
+    }
+}
+
+// Анимация градиента
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}

@@ -3,15 +3,16 @@
     "index": "/index.html",
     "assetGroups": [
         {
-            "name": "cv_cherkas.ivan_full-stack_developer",
+            "name": "app",
             "installMode": "prefetch",
             "resources": {
                 "files": [
                     "/favicon.ico",
                     "/index.html",
-                    "/manifest.json",
+                    "/manifest.webmanifest",
                     "/*.css",
-                    "/*.js"
+                    "/*.js",
+                    "/*.mjs"
                 ]
             }
         },
@@ -20,18 +21,10 @@
             "installMode": "lazy",
             "updateMode": "prefetch",
             "resources": {
-                "files": ["/icons/**"]
-            }
-        }
-    ],
-    "dataGroups": [
-        {
-            "name": "api",
-            "urls": ["/api/**"],
-            "cacheConfig": {
-                "maxSize": 20,
-                "maxAge": "1h",
-                "strategy": "freshness"
+                "files": [
+                    "/assets/**",
+                    "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
+                ]
             }
         }
     ]

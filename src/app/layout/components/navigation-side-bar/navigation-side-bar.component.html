@@ -1,0 +1,109 @@
+@if (isDesktopMode()) {
+    <aside class="desktop-sidebar">
+        <nav class="sidebar-content">
+            <div class="sidebar-header">
+                <h3 class="m-0">{{ 'NAVIGATION.NAVIGATION' | translate }}</h3>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="language-switch-container flex align-items-center justify-content-between p-3">
+                <label class="flex align-items-center gap-2">
+                    <i class="pi pi-globe"></i>
+                    <span>{{ 'NAVIGATION.LANGUAGE' | translate }}</span>
+                </label>
+                <cv-language-switcher></cv-language-switcher>
+            </div>
+
+            <!-- Theme Switcher -->
+            <div class="theme-switch-container flex align-items-center justify-content-between p-3">
+                <label
+                    for="themeToggle"
+                    class="flex align-items-center gap-2"
+                >
+                    <i class="pi pi-moon"></i>
+                    <span>{{ 'NAVIGATION.THEME' | translate }}</span>
+                </label>
+
+                <p-toggleswitch
+                    id="themeToggle"
+                    [ngModel]="themeService.isDarkMode()"
+                    (onChange)="themeService.toggleTheme()"
+                />
+            </div>
+
+            <!-- Navigation Menu -->
+            <div class="navigation-menu mt-4">
+                @for (item of navigationItems(); track item.label) {
+                    <a
+                        class="p-button p-button-text block mb-2"
+                        [routerLink]="item.routerLink"
+                        [queryParams]="item.queryParams"
+                    >
+                        <i
+                            [class]="item.icon"
+                            class="mr-2"
+                        ></i>
+                        {{ item.label }}
+                    </a>
+                }
+            </div>
+        </nav>
+    </aside>
+} @else {
+    <nav class="mobile-navigation">
+        <p-drawer
+            [visible]="drawerVisible()"
+            (onHide)="closeDrawer()"
+            [header]="drawerHeader()"
+            position="left"
+            [style]="{ width: '320px' }"
+            [modal]="true"
+            [dismissible]="true"
+            [showCloseIcon]="true"
+        >
+            <div class="drawer-content">
+                <!-- Language Switcher -->
+                <div class="language-switch-container flex align-items-center justify-content-between p-3">
+                    <label class="flex align-items-center gap-2">
+                        <i class="pi pi-globe"></i>
+                        <span>{{ 'NAVIGATION.LANGUAGE' | translate }}</span>
+                    </label>
+                    <cv-language-switcher></cv-language-switcher>
+                </div>
+
+                <!-- Theme Switcher -->
+                <div class="theme-switch-container flex align-items-center justify-content-between p-3">
+                    <label
+                        for="themeToggleMobile"
+                        class="flex align-items-center gap-2"
+                    >
+                        <i class="pi pi-moon"></i>
+                        <span>{{ 'NAVIGATION.THEME' | translate }}</span>
+                    </label>
+
+                    <p-toggleswitch
+                        id="themeToggleMobile"
+                        [ngModel]="themeService.isDarkMode()"
+                        (onChange)="themeService.toggleTheme()"
+                    />
+                </div>
+
+                <!-- Navigation Menu -->
+                <div class="navigation-menu mt-4">
+                    @for (item of navigationItems(); track item.label) {
+                        <a
+                            class="p-button p-button-text block mb-2"
+                            (click)="navigate(item)"
+                        >
+                            <i
+                                [class]="item.icon"
+                                class="mr-2"
+                            ></i>
+                            {{ item.label }}
+                        </a>
+                    }
+                </div>
+            </div>
+        </p-drawer>
+    </nav>
+}

@@ -1,4 +1,6 @@
 export const environment = {
-    production: true,
-    baseHref: '/cv_cherkas.ivan_full-stack_developer/',
+    production: false,
+    baseHref: '/',
+    platform: 'default',
+    apiUrl: 'http://localhost:4200',
 };

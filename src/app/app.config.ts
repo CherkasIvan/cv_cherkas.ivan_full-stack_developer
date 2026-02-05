@@ -1,6 +1,7 @@
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {
     provideHttpClient,
+    withFetch,
     withInterceptorsFromDi,
 } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
@@ -8,7 +9,9 @@ import {
     ApplicationConfig,
     importProvidersFrom,
     isDevMode,
+    provideZoneChangeDetection,
 } from '@angular/core';
+import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {
     provideRouter,
@@ -17,31 +20,21 @@ import {
 } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 
-import { Observable } from 'rxjs';
-
+import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 
+import { createTranslateLoader } from '@core/service/translate-loader-creator/translate-loader-creator.service';
 import { COLOR_THEME } from '@core/theme/color-theme.const';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { routes } from './app.routes';
 
-// Кастомный TranslateLoader
-export class CustomTranslateLoader implements TranslateLoader {
-    constructor(private http: HttpClient) {}
-
-    getTranslation(lang: string): Observable<any> {
-        return this.http.get(`./assets/i18n/${lang}.json`);
-    }
-}
-
-export function createTranslateLoader(http: HttpClient): TranslateLoader {
-    return new CustomTranslateLoader(http);
-}
-
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(withInterceptorsFromDi()),
+        MessageService,
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideHttpClient(withFetch(), withInterceptorsFromDi()),
+        provideClientHydration(),
         provideAnimations(),
         provideRouter(
             routes,

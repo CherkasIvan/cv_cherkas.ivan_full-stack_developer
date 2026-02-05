@@ -1,0 +1,31 @@
+{
+    "NAVIGATION": {
+        "NAVIGATION": "Navigation",
+        "THEME": "Dark theme",
+        "LANGUAGE": "Language",
+        "SEARCH": "Search",
+        "HOME": "Home",
+        "PROJECTS": "Projects",
+        "TECHNOLOGIES": "Technologies",
+        "EXPERIENCE": "Experience",
+        "DOWNLOAD_CV": "Download CV",
+        "ALL": "All",
+        "PUBLIC": "Public",
+        "PRIVATE": "Private",
+        "FRONTEND": "Frontend",
+        "BACKEND": "Backend",
+        "DEVOPS": "DevOps",
+        "OTHER": "Other",
+        "WORK_EXPERIENCE": "Work Experience",
+        "EDUCATION_EXPERIENCE": "Education"
+    },
+    "MEDIA": {
+        "instagram": "Instagram",
+        "telegram": "Telegram",
+        "apple": "Apple",
+        "github": "GitHub",
+        "linkedin": "LinkedIn",
+        "facebook": "Facebook",
+        "gmail": "Gmail"
+    }
+}
