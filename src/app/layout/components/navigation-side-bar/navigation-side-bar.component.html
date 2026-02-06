@@ -1,23 +1,23 @@
 <nav class="navigation-sidebar">
     <div class="sidebar-header">
-        <h2 class="sidebar-title">Навигация</h2>
+        <h2 class="sidebar-title">{{ 'LAYOUT.NAVIGATION' | translate }}</h2>
     </div>
 
     <mat-nav-list class="nav-list">
-        @for (route of navRoutes; track route.path) {
+        @for (routeItem of navRoutes; track routeItem.route) {
             <a
                 mat-list-item
-                [routerLink]="route.path"
+                [routerLink]="routeItem.path"
                 routerLinkActive="active"
                 (click)="onNavigate()"
             >
-                @if (route.icon) {
+                @if (routeItem.icon) {
                     <mat-icon matListItemIcon>
-                        {{ route.icon }}
+                        {{ routeItem.icon }}
                     </mat-icon>
                 }
                 <span matListItemTitle>
-                    {{ route.title | translate }}
+                    {{ routeItem.translationKey | translate }}
                 </span>
             </a>
         }

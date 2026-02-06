@@ -1,0 +1,28 @@
+<header class="mobile-header">
+    <button
+        mat-icon-button
+        class="burger-menu-btn"
+        [matMenuTriggerFor]="menu"
+        [matTooltip]="'Меню'"
+    >
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+        @for (routeItem of navRoutes; track routeItem.route) {
+            <button
+                mat-menu-item
+                [routerLink]="routeItem.path"
+                (click)="onNavigate()"
+            >
+                @if (routeItem.icon) {
+                    <mat-icon>{{ routeItem.icon }}</mat-icon>
+                }
+                <span>{{ routeItem.translationKey | translate }}</span>
+            </button>
+        }
+    </mat-menu>
+
+    <h1 class="mobile-title">Резюме</h1>
+    <cv-language-switcher></cv-language-switcher>
+</header>

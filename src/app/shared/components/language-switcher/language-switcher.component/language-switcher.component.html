@@ -1,0 +1,30 @@
+<div class="language-switcher">
+    <button
+        mat-icon-button
+        class="language-toggle-btn"
+        [matTooltip]="'LANGUAGE.SWITCH_LANGUAGE' | translate"
+        (click)="toggleLanguage()"
+    >
+        <div class="flag-wrapper">
+            @if (currentLanguage() === 'ru') {
+                <img
+                    src="assets/icons/flags/russia.svg"
+                    alt="Russian flag"
+                    class="flag-icon"
+                />
+                <span class="language-label">
+                    {{ 'LANGUAGE.RU' | translate }}
+                </span>
+            } @else {
+                <img
+                    src="assets/icons/flags/united-kingdom.svg"
+                    alt="English flag"
+                    class="flag-icon"
+                />
+                <span class="language-label">
+                    {{ 'LANGUAGE.EN' | translate }}
+                </span>
+            }
+        </div>
+    </button>
+</div>

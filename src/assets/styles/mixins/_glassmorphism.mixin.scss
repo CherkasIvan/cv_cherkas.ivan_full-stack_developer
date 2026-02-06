@@ -1,4 +1,80 @@
-@use '../variables' as color;
+@mixin sidebar_glassmorphism {
+    position: relative;
+    opacity: 0.95;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+
+    // Световые эффекты
+    box-shadow:
+        3px 0 10px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    // Границы
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+
+    // Градиентный фон
+    background: linear-gradient(
+        180deg,
+        rgba(63, 81, 181, 0.9) 0%,
+        rgba(33, 150, 243, 0.9) 100% // #2196f3 с
+    );
+    overflow: hidden;
+
+    &::before {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        pointer-events: none;
+        content: '';
+    }
+}
+
+@mixin sidebar_glassmorphism-light {
+    @include sidebar_glassmorphism;
+    box-shadow:
+        3px 0 15px rgba(63, 81, 181, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+
+    background: linear-gradient(
+        180deg,
+        rgba(63, 81, 181, 0.85) 0%,
+        rgba(33, 150, 243, 0.85) 100%
+    );
+}
+
+@mixin sidebar_glassmorphism-dark {
+    @include sidebar_glassmorphism;
+    box-shadow:
+        3px 0 15px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+    background: linear-gradient(
+        180deg,
+        rgba(63, 81, 181, 0.95) 0%,
+        rgba(33, 150, 243, 0.95) 100%
+    );
+}
+
+@mixin sidebar_glassmorphism-hover {
+    opacity: 0.98;
+    backdrop-filter: blur(25px);
+    box-shadow:
+        3px 0 20px rgba(63, 81, 181, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
 
 @mixin footer_glassmorphism {
     opacity: 0.95;
@@ -66,7 +142,7 @@
     background: rgba(255, 255, 255, 0.1);
     padding: 10px 15px;
     width: fit-content;
-    color: color.$white;
+    color: white;
     font-size: 18px;
 }
 

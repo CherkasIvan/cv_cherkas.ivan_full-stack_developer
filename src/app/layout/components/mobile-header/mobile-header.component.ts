@@ -1,16 +1,37 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
 
+import { LanguageSwitcherComponent } from '@shared/components/language-switcher/language-switcher.component/language-switcher.component';
+
+import { NAV_ROUTES } from '@core/constant/nav-routes.const';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'cv-mobile-header',
     standalone: true,
-    imports: [CommonModule, FormsModule, TranslateModule],
+    imports: [
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        RouterModule,
+        TranslateModule,
+        MatTooltipModule,
+        LanguageSwitcherComponent,
+    ],
     templateUrl: './mobile-header.component.html',
-    styleUrl: './mobile-header.component.scss',
+    styleUrls: ['./mobile-header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MobileHeaderComponent {}
+export class MobileHeaderComponent {
+    navigate = output<void>();
+
+    readonly navRoutes = NAV_ROUTES;
+
+    onNavigate(): void {
+        this.navigate.emit();
+    }
+}

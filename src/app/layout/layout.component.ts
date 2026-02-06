@@ -1,7 +1,8 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, ViewChild, computed, effect, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterOutlet } from '@angular/router';
@@ -9,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
 import { debounceTime, fromEvent } from 'rxjs';
 
 import { VIEWPORT_BREAKPOINTS } from '@core/constant/viewport.const';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { MobileHeaderComponent } from './components/mobile-header/mobile-header.component';
 import { NavigationSideBarComponent } from './components/navigation-side-bar/navigation-side-bar.component';
@@ -24,6 +26,8 @@ import { NavigationSideBarComponent } from './components/navigation-side-bar/nav
         MatTooltipModule,
         NavigationSideBarComponent,
         MobileHeaderComponent,
+        TranslateModule,
+        MatMenuModule,
     ],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
@@ -31,6 +35,11 @@ import { NavigationSideBarComponent } from './components/navigation-side-bar/nav
 export class LayoutComponent {
     readonly isSideNavOpened = signal(true);
     readonly isMobileMenuOpened = signal(false);
+    @ViewChild(MatMenuTrigger) trigger!: MatMenuTrigger;
+
+    someMethod() {
+        this.trigger.openMenu();
+    }
 
     private readonly windowWidth = signal(window.innerWidth);
 

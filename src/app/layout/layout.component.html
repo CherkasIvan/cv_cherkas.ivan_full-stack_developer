@@ -17,7 +17,7 @@
 
             <mat-sidenav-content
                 class="content"
-                [style.z-index]="1000"
+                [style.z-index]="1111"
             >
                 <button
                     mat-icon-button
@@ -25,11 +25,11 @@
                     (click)="toggleSideNav()"
                     [matTooltip]="
                         isSideNavOpened()
-                            ? 'Скрыть навигацию'
-                            : 'Показать навигацию'
+                            ? ('LAYOUT.HIDE_NAVIGATION' | translate)
+                            : ('LAYOUT.SHOW_NAVIGATION' | translate)
                     "
                     [style.left.px]="computedSideNavWidth() - 20"
-                    [style.z-index]="1000"
+                    [style.z-index]="1111"
                 >
                     <mat-icon>
                         {{
@@ -38,44 +38,14 @@
                     </mat-icon>
                 </button>
 
-                <div
-                    class="page-content"
-                    [style.marginLeft.px]="computedSideNavWidth()"
-                >
+                <div class="page-content">
                     <router-outlet />
                 </div>
             </mat-sidenav-content>
         </mat-sidenav-container>
     } @else {
         <div class="layout-container">
-            <header class="mobile-header">
-                <button
-                    mat-icon-button
-                    class="burger-menu-btn"
-                    (click)="toggleMobileMenu()"
-                    [matTooltip]="'Меню'"
-                >
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <h1 class="mobile-title">Резюме</h1>
-            </header>
-
-            @if (isMobileMenuOpened()) {
-                <div
-                    class="mobile-menu-overlay"
-                    (click)="toggleMobileMenu()"
-                >
-                    <div
-                        class="mobile-menu"
-                        (click)="$event.stopPropagation()"
-                    >
-                        <cv-navigation-side-bar
-                            (navigate)="onMobileNavigation()"
-                        />
-                    </div>
-                </div>
-            }
-
+            <cv-mobile-header></cv-mobile-header>
             <div class="page-content">
                 <router-outlet />
             </div>

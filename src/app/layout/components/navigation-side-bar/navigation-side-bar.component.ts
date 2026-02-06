@@ -5,13 +5,9 @@ import { RouterModule } from '@angular/router';
 
 import { LanguageSwitcherComponent } from '@shared/components/language-switcher/language-switcher.component/language-switcher.component';
 
+import { NAV_ROUTES } from '@core/constant/nav-routes.const';
+import { NavRoute } from '@core/interfaces/nav-route.interface';
 import { TranslateModule } from '@ngx-translate/core';
-
-export interface NavRoute {
-    path: string;
-    title: string;
-    icon?: string;
-}
 
 @Component({
     selector: 'cv-navigation-side-bar',
@@ -29,13 +25,7 @@ export interface NavRoute {
 export class NavigationSideBarComponent {
     navigate = output<void>();
 
-    navRoutes: NavRoute[] = [
-        { path: '/home', title: 'Главная', icon: 'home' },
-        { path: '/projects', title: 'Проекты', icon: 'folder' },
-        { path: '/technologies', title: 'Технологии', icon: 'code' },
-        { path: '/experience', title: 'Опыт работы', icon: 'work' },
-        { path: '/download-cv', title: 'Скачать CV', icon: 'download' },
-    ];
+    readonly navRoutes: NavRoute[] = NAV_ROUTES;
 
     onNavigate(): void {
         this.navigate.emit();
