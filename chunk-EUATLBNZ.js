@@ -1,0 +1,1 @@
+import{Pb as a,cb as t,xb as o,yb as p}from"./chunk-5DR7BZPB.js";var i=class n{static \u0275fac=function(e){return new(e||n)};static \u0275cmp=t({type:n,selectors:[["cv-experience-page"]],decls:2,vars:0,template:function(e,r){e&1&&(o(0,"p"),a(1,"experience-page works!"),p())},encapsulation:2,changeDetection:0})};export{i as ExperiencePageComponent};

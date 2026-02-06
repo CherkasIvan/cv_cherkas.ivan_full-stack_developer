@@ -1,1 +1,0 @@
-import{Kb as i,Sa as t,nb as n,ob as a}from"./chunk-NHEMQ547.js";var c=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=t({type:o,selectors:[["cv-technologies-page"]],decls:2,vars:0,template:function(e,p){e&1&&(n(0,"p"),i(1,"technologies-page works!"),a())},encapsulation:2,changeDetection:0})};export{c as TechnologiesPageComponent};

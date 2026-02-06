@@ -1,31 +1,21 @@
 {
-    "NAVIGATION": {
+    "LAYOUT": {
         "NAVIGATION": "Navigation",
-        "THEME": "Dark theme",
-        "LANGUAGE": "Language",
-        "SEARCH": "Search",
+        "RESUME": "Resume",
+        "SHOW_NAVIGATION": "Show navigation",
+        "HIDE_NAVIGATION": "Hide navigation",
+        "MENU": "Menu"
+    },
+    "ROUTES": {
         "HOME": "Home",
         "PROJECTS": "Projects",
         "TECHNOLOGIES": "Technologies",
         "EXPERIENCE": "Experience",
-        "DOWNLOAD_CV": "Download CV",
-        "ALL": "All",
-        "PUBLIC": "Public",
-        "PRIVATE": "Private",
-        "FRONTEND": "Frontend",
-        "BACKEND": "Backend",
-        "DEVOPS": "DevOps",
-        "OTHER": "Other",
-        "WORK_EXPERIENCE": "Work Experience",
-        "EDUCATION_EXPERIENCE": "Education"
+        "DOWNLOAD_CV": "Download CV"
     },
-    "MEDIA": {
-        "instagram": "Instagram",
-        "telegram": "Telegram",
-        "apple": "Apple",
-        "github": "GitHub",
-        "linkedin": "LinkedIn",
-        "facebook": "Facebook",
-        "gmail": "Gmail"
+    "LANGUAGE": {
+        "EN": "English",
+        "RU": "Russian",
+        "SWITCH_LANGUAGE": "Switch language"
     }
 }

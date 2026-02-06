@@ -1,1 +1,0 @@
-import{Kb as c,Sa as n,nb as t,ob as a}from"./chunk-NHEMQ547.js";var d=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=n({type:o,selectors:[["cv-download-cv"]],decls:2,vars:0,template:function(e,l){e&1&&(t(0,"p"),c(1,"download-cv works!"),a())},encapsulation:2,changeDetection:0})};export{d as DownloadCvComponent};

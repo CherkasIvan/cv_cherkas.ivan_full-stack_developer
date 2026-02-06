@@ -1,31 +1,21 @@
 {
-    "NAVIGATION": {
+    "LAYOUT": {
         "NAVIGATION": "Навигация",
-        "THEME": "Темная тема",
-        "LANGUAGE": "Язык",
-        "SEARCH": "Поиск",
+        "RESUME": "Резюме",
+        "SHOW_NAVIGATION": "Показать навигацию",
+        "HIDE_NAVIGATION": "Скрыть навигацию",
+        "MENU": "Меню"
+    },
+    "ROUTES": {
         "HOME": "Главная",
         "PROJECTS": "Проекты",
         "TECHNOLOGIES": "Технологии",
-        "EXPERIENCE": "Опыт",
-        "DOWNLOAD_CV": "Скачать резюме",
-        "ALL": "Все",
-        "PUBLIC": "Публичные",
-        "PRIVATE": "Приватные",
-        "FRONTEND": "Frontend",
-        "BACKEND": "Backend",
-        "DEVOPS": "DevOps",
-        "OTHER": "Другие",
-        "WORK_EXPERIENCE": "Опыт работы",
-        "EDUCATION_EXPERIENCE": "Образование"
+        "EXPERIENCE": "Опыт работы",
+        "DOWNLOAD_CV": "Скачать CV"
     },
-    "MEDIA": {
-        "instagram": "Инстаграм",
-        "telegram": "Телеграм",
-        "apple": "Эпл",
-        "github": "Гитхаб",
-        "linkedin": "Линкедин",
-        "facebook": "Фейсбук",
-        "gmail": "Джимейл"
+    "LANGUAGE": {
+        "EN": "English",
+        "RU": "Русский",
+        "SWITCH_LANGUAGE": "Переключить язык"
     }
 }

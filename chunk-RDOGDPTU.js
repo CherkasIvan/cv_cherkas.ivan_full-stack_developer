@@ -1,0 +1,1 @@
+import{Pb as m,cb as o,xb as n,yb as a}from"./chunk-5DR7BZPB.js";var p=class t{static \u0275fac=function(e){return new(e||t)};static \u0275cmp=o({type:t,selectors:[["cv-home-page"]],decls:2,vars:0,template:function(e,c){e&1&&(n(0,"p"),m(1,"home-page works!"),a())},encapsulation:2,changeDetection:0})};export{p as HomePageComponent};
