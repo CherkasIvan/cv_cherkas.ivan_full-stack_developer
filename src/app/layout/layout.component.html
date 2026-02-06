@@ -1,44 +1,84 @@
-<div class="layout">
-    @if (showHeader()) {
-        <cv-mobile-header (menuClick)="mobileMenuVisible.set(true)" />
-    }
-    @if (showSidebar()) {
-        <cv-navigation-side-bar />
-    } @else {
-        <cv-navigation-side-bar
-            [drawerVisible]="mobileMenuVisible()"
-            (drawerVisibleChange)="mobileMenuVisible.set($event)"
-        />
-    }
-
-    <div class="layout-wrapper">
-        <main class="fieldset-container">
-            <!-- Левый Fieldset с кастомными токенами -->
-            <p-fieldset
-                legend="Left"
-                class="left"
-                [dt]="fieldsetTokens().leftFieldset"
-            >
-                <ng-content />
-            </p-fieldset>
-
-            <!-- Правый Fieldset с кастомными токенами -->
-            <p-fieldset
-                legend="Right"
-                class="right"
-                [dt]="fieldsetTokens().rightFieldset"
-            >
-                <p class="m-0">Lorem ipsum dolor sit amet...</p>
-            </p-fieldset>
-        </main>
-
-        <!-- Футер с динамическими классами для темы -->
-        <footer
-            class="footer-container"
-            [class.footer-light]="!themeService.isDarkMode()"
-            [class.footer-dark]="themeService.isDarkMode()"
+<main class="layout">
+    @if (!isMobile()) {
+        <mat-sidenav-container
+            class="sidenav-container"
+            [hasBackdrop]="false"
         >
-            <cv-footer-media-links />
-        </footer>
-    </div>
-</div>
+            <mat-sidenav
+                mode="side"
+                position="start"
+                [opened]="isSideNavOpened()"
+                [fixedInViewport]="true"
+                class="navigation-sidenav"
+                [style.width.px]="computedSideNavWidth()"
+            >
+                <cv-navigation-side-bar (navigate)="onNavigation()" />
+            </mat-sidenav>
+
+            <mat-sidenav-content
+                class="content"
+                [style.z-index]="1000"
+            >
+                <button
+                    mat-icon-button
+                    class="nav-toggle-btn"
+                    (click)="toggleSideNav()"
+                    [matTooltip]="
+                        isSideNavOpened()
+                            ? 'Скрыть навигацию'
+                            : 'Показать навигацию'
+                    "
+                    [style.left.px]="computedSideNavWidth() - 20"
+                    [style.z-index]="1000"
+                >
+                    <mat-icon>
+                        {{
+                            isSideNavOpened() ? 'chevron_left' : 'chevron_right'
+                        }}
+                    </mat-icon>
+                </button>
+
+                <div
+                    class="page-content"
+                    [style.marginLeft.px]="computedSideNavWidth()"
+                >
+                    <router-outlet />
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    } @else {
+        <div class="layout-container">
+            <header class="mobile-header">
+                <button
+                    mat-icon-button
+                    class="burger-menu-btn"
+                    (click)="toggleMobileMenu()"
+                    [matTooltip]="'Меню'"
+                >
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <h1 class="mobile-title">Резюме</h1>
+            </header>
+
+            @if (isMobileMenuOpened()) {
+                <div
+                    class="mobile-menu-overlay"
+                    (click)="toggleMobileMenu()"
+                >
+                    <div
+                        class="mobile-menu"
+                        (click)="$event.stopPropagation()"
+                    >
+                        <cv-navigation-side-bar
+                            (navigate)="onMobileNavigation()"
+                        />
+                    </div>
+                </div>
+            }
+
+            <div class="page-content">
+                <router-outlet />
+            </div>
+        </div>
+    }
+</main>

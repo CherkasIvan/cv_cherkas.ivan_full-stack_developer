@@ -1,22 +1,15 @@
-import { CommonModule } from '@angular/common';
-import {
-    Component,
-    DestroyRef,
-    HostListener,
-    OnInit,
-    computed,
-    inject,
-    signal,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, effect, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterOutlet } from '@angular/router';
 
-import { FieldsetModule } from 'primeng/fieldset';
+import { debounceTime, fromEvent } from 'rxjs';
 
 import { VIEWPORT_BREAKPOINTS } from '@core/constant/viewport.const';
-import { ThemeService } from '@core/service/theme/theme.service';
-import { LAYOUT_FIELDSET_STYLES } from '@core/theme/components/fieldset.tokens';
 
-import { FooterMediaLinksComponent } from './components/footer-media-links/footer-media-links.component';
 import { MobileHeaderComponent } from './components/mobile-header/mobile-header.component';
 import { NavigationSideBarComponent } from './components/navigation-side-bar/navigation-side-bar.component';
 
@@ -24,60 +17,70 @@ import { NavigationSideBarComponent } from './components/navigation-side-bar/nav
     selector: 'cv-layout',
     standalone: true,
     imports: [
-        CommonModule,
-        FieldsetModule,
-        FooterMediaLinksComponent,
+        RouterOutlet,
+        MatSidenavModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
         NavigationSideBarComponent,
         MobileHeaderComponent,
     ],
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.scss'],
 })
-export class LayoutComponent implements OnInit {
-    private readonly destroyRef = inject(DestroyRef);
-    private readonly viewportBreakpoints = VIEWPORT_BREAKPOINTS;
-    readonly themeService = inject(ThemeService);
+export class LayoutComponent {
+    readonly isSideNavOpened = signal(true);
+    readonly isMobileMenuOpened = signal(false);
 
-    readonly isMobileView = signal<boolean>(false);
-    readonly mobileMenuVisible = signal<boolean>(false); // Исправленный тип
+    private readonly windowWidth = signal(window.innerWidth);
 
-    readonly showHeader = computed(() => this.isMobileView());
-    readonly showSidebar = computed(() => !this.isMobileView());
-
-    // Токены для Fieldset с учетом темы
-    readonly fieldsetTokens = computed(() => {
-        const isDark = this.themeService.isDarkMode();
-        return isDark
-            ? LAYOUT_FIELDSET_STYLES.darkModeOverrides
-            : LAYOUT_FIELDSET_STYLES;
+    readonly isMobile = computed(() => {
+        return this.windowWidth() < VIEWPORT_BREAKPOINTS.MOBILE;
     });
 
-    ngOnInit(): void {
-        this.checkViewport();
-        this.setupResizeListener();
+    readonly computedSideNavWidth = computed(() => {
+        return this.isSideNavOpened() ? 280 : 0;
+    });
+
+    private wasMobile = this.isMobile();
+
+    constructor() {
+        const resize$ = fromEvent(window, 'resize').pipe(debounceTime(100));
+
+        const windowSize = toSignal(resize$, { initialValue: undefined });
+
+        effect(() => {
+            windowSize(); // Реакция на изменения
+            const currentWidth = window.innerWidth;
+            this.windowWidth.set(currentWidth);
+
+            const nowIsMobile = currentWidth < VIEWPORT_BREAKPOINTS.MOBILE;
+
+            if (nowIsMobile && !this.wasMobile) {
+                this.isSideNavOpened.set(false);
+                this.isMobileMenuOpened.set(false);
+            } else if (!nowIsMobile && this.wasMobile) {
+                this.isSideNavOpened.set(true);
+                this.isMobileMenuOpened.set(false);
+            }
+
+            this.wasMobile = nowIsMobile;
+        });
     }
 
-    @HostListener('window:resize')
-    handleResize(): void {
-        this.checkViewport();
+    toggleSideNav(): void {
+        this.isSideNavOpened.update((value) => !value);
     }
 
-    private checkViewport(): void {
-        if (typeof window === 'undefined') return;
-        this.isMobileView.set(
-            window.innerWidth <= this.viewportBreakpoints.MOBILE,
-        );
+    toggleMobileMenu(): void {
+        this.isMobileMenuOpened.update((value) => !value);
     }
 
-    private setupResizeListener(): void {
-        if (typeof window !== 'undefined') {
-            window.addEventListener('resize', this.handleResize.bind(this));
-            this.destroyRef.onDestroy(() => {
-                window.removeEventListener(
-                    'resize',
-                    this.handleResize.bind(this),
-                );
-            });
+    onNavigation(): void {}
+
+    onMobileNavigation(): void {
+        if (this.isMobile()) {
+            this.isMobileMenuOpened.set(false);
         }
     }
 }

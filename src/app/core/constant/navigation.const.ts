@@ -113,28 +113,24 @@ export const DRAWER_NAVIGATION_ITEMS: NavigationItem[] = [
     },
     {
         label: 'Projects',
-        translationKey: 'NAVIGATION.PROJECTS',
         icon: 'pi pi-briefcase',
         routerLink: AppRoutes.PROJECTS,
         queryParams: { tab: ProjectTab.PUBLIC },
     },
     {
         label: 'Technologies',
-        translationKey: 'NAVIGATION.TECHNOLOGIES',
         icon: 'pi pi-code',
         routerLink: AppRoutes.TECHNOLOGIES,
         queryParams: { tab: TechnologyTab.FRONTEND },
     },
     {
         label: 'Experience',
-        translationKey: 'NAVIGATION.EXPERIENCE',
         icon: 'pi pi-history',
         routerLink: AppRoutes.EXPERIENCE,
         queryParams: { tab: ExperienceTab.WORK },
     },
     {
         label: 'Download CV',
-        translationKey: 'NAVIGATION.DOWNLOAD_CV',
         icon: 'pi pi-download',
         routerLink: AppRoutes.DOWNLOAD_CV,
     },

@@ -1,100 +1,43 @@
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-
-import { CommonModule } from '@angular/common';
-import {
-    Component,
-    DestroyRef,
-    OnInit,
-    computed,
-    inject,
-    input,
-    output,
-    signal,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-
-import { DRAWER_NAVIGATION_ITEMS } from '@core/constant/navigation.const';
-import { NavigationItem } from '@core/interfaces/navigation-item.interface';
-import { ThemeService } from '@core/service/theme/theme.service';
-import { TranslationService } from '@core/service/translation/translation.service';
+import { Component, output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 
 import { LanguageSwitcherComponent } from '@shared/components/language-switcher/language-switcher.component/language-switcher.component';
 
 import { TranslateModule } from '@ngx-translate/core';
 
+export interface NavRoute {
+    path: string;
+    title: string;
+    icon?: string;
+}
+
 @Component({
     selector: 'cv-navigation-side-bar',
     standalone: true,
     imports: [
-        CommonModule,
         RouterModule,
-        FormsModule,
+        MatListModule,
+        MatIconModule,
         TranslateModule,
-        DrawerModule,
-        ButtonModule,
-        ToggleSwitchModule,
         LanguageSwitcherComponent,
     ],
     templateUrl: './navigation-side-bar.component.html',
     styleUrls: ['./navigation-side-bar.component.scss'],
 })
-export class NavigationSideBarComponent implements OnInit {
-    private readonly router = inject(Router);
-    private readonly destroyRef = inject(DestroyRef);
-    readonly themeService = inject(ThemeService);
-    readonly translationService = inject(TranslationService);
+export class NavigationSideBarComponent {
+    navigate = output<void>();
 
-    drawerVisible = input<boolean>(false);
-    drawerVisibleChange = output<boolean>();
+    navRoutes: NavRoute[] = [
+        { path: '/home', title: 'Главная', icon: 'home' },
+        { path: '/projects', title: 'Проекты', icon: 'folder' },
+        { path: '/technologies', title: 'Технологии', icon: 'code' },
+        { path: '/experience', title: 'Опыт работы', icon: 'work' },
+        { path: '/download-cv', title: 'Скачать CV', icon: 'download' },
+    ];
 
-    readonly navigationItems = signal<NavigationItem[]>(
-        DRAWER_NAVIGATION_ITEMS,
-    );
-
-    readonly isDesktopMode = computed(() => !this.drawerVisible());
-
-    readonly drawerHeader = computed(() =>
-        this.translationService.translateKey('NAVIGATION.NAVIGATION'),
-    );
-
-    ngOnInit(): void {
-        this.router.events
-            .pipe(takeUntilDestroyed(this.destroyRef))
-            .subscribe(() => {
-                this.closeDrawer();
-            });
-
-        document.addEventListener('keydown', this.handleEscapeKey.bind(this));
-
-        this.destroyRef.onDestroy(() => {
-            document.removeEventListener(
-                'keydown',
-                this.handleEscapeKey.bind(this),
-            );
-        });
-    }
-
-    closeDrawer(): void {
-        this.drawerVisibleChange.emit(false);
-    }
-
-    navigate(item: NavigationItem): void {
-        this.closeDrawer();
-
-        if (item.routerLink) {
-            this.router.navigate([item.routerLink], {
-                queryParams: item.queryParams,
-            });
-        }
-    }
-
-    private handleEscapeKey(event: KeyboardEvent): void {
-        if (event.key === 'Escape' && this.drawerVisible()) {
-            this.closeDrawer();
-        }
+    onNavigate(): void {
+        this.navigate.emit();
     }
 }

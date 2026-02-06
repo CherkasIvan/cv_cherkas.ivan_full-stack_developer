@@ -1,13 +1,10 @@
-import { ButtonModule } from 'primeng/button';
-import { TabsModule } from 'primeng/tabs';
-
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'cv-projects-page',
     standalone: true,
-    imports: [ButtonModule, TabsModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './projects-page.component.html',
     styleUrl: './projects-page.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
