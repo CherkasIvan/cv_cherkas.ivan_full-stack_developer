@@ -1,1 +1,16 @@
-<p>experience-page works!</p>
+<div class="experience-page">
+    <h1 class="page-title">{{ 'EXPERIENCE.TITLE' | translate }}</h1>
+
+    <mat-grid-list
+        [cols]="gridCols"
+        [rowHeight]="rowHeight"
+        [gutterSize]="'20px'"
+        class="experience-grid"
+    >
+        @for (item of experienceItems; track item.id) {
+            <mat-grid-tile>
+                <cv-experience-card [experience]="item" />
+            </mat-grid-tile>
+        }
+    </mat-grid-list>
+</div>

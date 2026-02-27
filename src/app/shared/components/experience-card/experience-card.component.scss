@@ -1,0 +1,33 @@
+.experience-page {
+    padding: 24px;
+    min-height: 100%;
+
+    .page-title {
+        margin-bottom: 32px;
+        color: #3f51b5;
+        font-weight: 300;
+        font-size: 2rem;
+    }
+
+    .experience-grid {
+        margin: 0 auto;
+        width: 100%;
+
+        // Для мобильных устройств
+        @media (max-width: 768px) {
+            margin: 0;
+        }
+    }
+}
+
+// Адаптация для разных экранов
+@media (max-width: 600px) {
+    .experience-page {
+        padding: 16px;
+
+        .page-title {
+            margin-bottom: 24px;
+            font-size: 1.5rem;
+        }
+    }
+}

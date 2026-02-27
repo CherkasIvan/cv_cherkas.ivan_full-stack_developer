@@ -13,9 +13,18 @@
         "EXPERIENCE": "Опыт работы",
         "DOWNLOAD_CV": "Скачать CV"
     },
+
     "LANGUAGE": {
-        "EN": "English",
+        "EN": "Английский",
         "RU": "Русский",
         "SWITCH_LANGUAGE": "Переключить язык"
+    },
+    "EXPERIENCE": {
+        "TITLE": "Опыт работы",
+        "TECHNOLOGIES": "Технологии",
+        "ACHIEVEMENTS": "Достижения",
+        "PERIOD": "Период",
+        "SHOW_MORE": "Подробнее",
+        "SHOW_LESS": "Скрыть"
     }
 }

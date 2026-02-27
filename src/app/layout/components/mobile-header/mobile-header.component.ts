@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    input,
+    output,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -27,11 +32,20 @@ import { TranslateModule } from '@ngx-translate/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileHeaderComponent {
+    // Входные свойства
+    isMenuOpened = input<boolean>(false);
+
+    // Выходные события
     navigate = output<void>();
+    toggleMenu = output<void>();
 
     readonly navRoutes = NAV_ROUTES;
 
     onNavigate(): void {
         this.navigate.emit();
+    }
+
+    onToggleMenu(): void {
+        this.toggleMenu.emit();
     }
 }

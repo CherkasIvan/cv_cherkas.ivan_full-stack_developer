@@ -1,10 +1,37 @@
 <main class="layout">
+    <!-- Контейнер для фоновых изображений -->
+    <div class="background-container">
+        <!-- Текущее изображение -->
+        <img
+            [src]="currentImage.url"
+            class="background-image current"
+            alt="Season background"
+            [class.loading]="!currentImage.loaded"
+            (load)="onImageLoad($event, 'current')"
+        />
+
+        <!-- Следующее изображение (для плавного перехода) -->
+        @if (isTransitioning() && nextImage.url) {
+            <img
+                [src]="nextImage.url"
+                class="background-image next"
+                alt="Next season background"
+                [class.loading]="!nextImage.loaded"
+                (load)="onImageLoad($event, 'next')"
+            />
+        }
+
+        <!-- Слой с размытием по краям (Способ 3) -->
+        <div class="blur-overlay"></div>
+    </div>
+
     @if (!isMobile()) {
         <mat-sidenav-container
             class="sidenav-container"
             [hasBackdrop]="false"
         >
             <mat-sidenav
+                #sidenav
                 mode="side"
                 position="start"
                 [opened]="isSideNavOpened()"
@@ -19,6 +46,7 @@
                 class="content"
                 [style.z-index]="1111"
             >
+                <!-- Кнопка переключения сайдбара -->
                 <button
                     mat-icon-button
                     class="nav-toggle-btn"
@@ -38,6 +66,19 @@
                     </mat-icon>
                 </button>
 
+                <!-- Кнопка для ручной смены картинки (для тестирования) -->
+                <button
+                    mat-mini-fab
+                    color="accent"
+                    class="next-image-btn"
+                    (click)="nextImageManually()"
+                    matTooltip="Следующее изображение"
+                    [style.left.px]="computedSideNavWidth() + 80"
+                >
+                    <mat-icon>photo_camera</mat-icon>
+                </button>
+
+                <!-- Основной контент -->
                 <div class="page-content">
                     <router-outlet />
                 </div>
@@ -45,10 +86,29 @@
         </mat-sidenav-container>
     } @else {
         <div class="layout-container">
-            <cv-mobile-header></cv-mobile-header>
+            <cv-mobile-header
+                [isMenuOpened]="isMobileMenuOpened()"
+                (toggleMenu)="toggleMobileMenu()"
+            />
+
+            <!-- Мобильное меню -->
+            @if (isMobileMenuOpened()) {
+                <div class="mobile-menu">
+                    <cv-navigation-side-bar (navigate)="onMobileNavigation()" />
+                </div>
+            }
+
             <div class="page-content">
                 <router-outlet />
             </div>
         </div>
     }
 </main>
+
+<div
+    class="season-info"
+    [style.left.px]="computedSideNavWidth() + 20"
+>
+    <mat-icon>filter_drama</mat-icon>
+    <span>{{ currentSeason | translate }}</span>
+</div>
