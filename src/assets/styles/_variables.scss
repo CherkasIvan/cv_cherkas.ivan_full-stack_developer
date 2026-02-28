@@ -1,0 +1,75 @@
+// Breakpoints
+$mobile-breakpoint: 480px;
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 1024px;
+$large-breakpoint: 1280px;
+
+// Sizes
+$sidenav-width: 280px;
+$toggle-button-offset: 20px;
+$edge-blur-amount: 1.5rem;
+$bottom-panel-bottom: 20px;
+$bottom-panel-offset: 20px;
+$mobile-header-height: 60px;
+
+// Durations
+$transition-duration: 0.3s;
+$image-transition-duration: 1s;
+$rotation-interval: 30000ms;
+$glow-animation-duration: 8s;
+
+// Colors
+$background-gradient-start: #1a1a2e;
+$background-gradient-end: #16213e;
+$sidenav-gradient-start: rgba(84, 8, 164, 0.85);
+$sidenav-gradient-end: rgba(33, 150, 243, 0.85);
+$mobile-menu-gradient-start: #5408a4;
+$mobile-menu-gradient-end: #2196f3;
+
+// Z-index layers
+$z-background: 0;
+$z-overlay: 3;
+$z-sidenav: 10;
+$z-mobile-menu: 1000;
+$z-top: 1111;
+
+// Blur intensities
+$light-blur: 5px;
+$medium-blur: 8px;
+$strong-blur: 10px;
+
+// Glassmorphism
+$glass-background: rgba(255, 255, 255, 0.1);
+$glass-border: rgba(255, 255, 255, 0.2);
+$glass-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+$glass-hover-background: rgba(255, 255, 255, 0.15);
+
+// Glow effects
+$glow-white-light: rgba(255, 255, 255, 0.08);
+$glow-white-medium: rgba(255, 255, 255, 0.15);
+$glow-white-strong: rgba(255, 255, 255, 0.25);
+
+// Navigation colors
+$nav-item-color: rgba(255, 255, 255, 0.85);
+$nav-item-hover: rgba(255, 255, 255, 0.1);
+$nav-item-active: rgba(255, 255, 255, 0.2);
+$nav-icon-color: rgba(255, 255, 255, 0.7);
+$nav-border-color: rgba(255, 255, 255, 0.1);
+
+// Scrollbar
+$scrollbar-width: 4px;
+$scrollbar-track: rgba(255, 255, 255, 0.05);
+$scrollbar-thumb: rgba(255, 255, 255, 0.2);
+$scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+
+// Gradients
+$diagonal-glow-gradient: linear-gradient(
+    115deg,
+    transparent 30%,
+    $glow-white-light 40%,
+    $glow-white-medium 45%,
+    $glow-white-strong 50%,
+    $glow-white-medium 55%,
+    $glow-white-light 60%,
+    transparent 70%
+);

@@ -1,30 +1,108 @@
+@use '../../../../assets/styles/variables' as *;
+@use '../../../../assets/styles/mixins/glassmorphism.mixin' as glass;
+
 .navigation-sidebar {
     display: flex;
+    position: relative;
     flex-direction: column;
     padding: 20px;
-    overflow: hidden; // Убираем скролл
+    height: 100%;
+    overflow: hidden;
+
+    &::after {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        transform: rotate(25deg);
+        z-index: 1;
+        animation: diagonalGlow 8s ease-in-out infinite;
+        background: linear-gradient(
+            115deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.12) 40%,
+            rgba(255, 255, 255, 0.2) 45%,
+            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.2) 55%,
+            rgba(255, 255, 255, 0.12) 60%,
+            transparent 70%
+        );
+        width: 200%;
+        height: 200%;
+        pointer-events: none;
+        content: '';
+    }
 }
 
 .sidebar-header {
+    position: relative;
+    z-index: 2;
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding: 0 0 20px;
+    text-align: center;
 
-    .sidebar-title {
-        margin: 0;
-        color: white;
-        font-weight: 500;
-        font-size: 1.5rem;
-        text-align: center;
+    .logo {
+        margin-bottom: 10px;
+        max-width: 150px;
     }
 }
 
 .nav-list {
-    flex: 1;
+    position: relative;
+    z-index: 2;
     padding: 0;
     overflow-x: hidden;
-    overflow-y: auto; // Разрешаем скролл только для списка
+    overflow-y: auto;
 
+    // Стили для expansion panel
+    .nav-expansion-panel {
+        margin: 4px 0;
+        box-shadow: none !important;
+        background: transparent !important;
+
+        ::ng-deep .mat-expansion-panel-header {
+            padding: 0 16px;
+            height: 56px;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+        ::ng-deep .mat-expansion-panel-body {
+            padding: 0 0 0 16px;
+        }
+
+        .panel-title {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.85);
+
+            .panel-icon {
+                margin-right: 16px;
+                color: rgba(255, 255, 255, 0.7);
+            }
+        }
+
+        .child-link {
+            margin: 2px 0;
+            border-radius: 8px;
+            height: 48px;
+            color: rgba(255, 255, 255, 0.75);
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                color: white;
+            }
+
+            &.active {
+                background-color: rgba(255, 255, 255, 0.15);
+                color: white;
+            }
+        }
+    }
+
+    // Стили для обычных ссылок
     a.mat-mdc-list-item {
         margin: 4px 0;
         border-radius: 8px;
@@ -64,7 +142,31 @@
 
 .sidebar-footer {
     display: flex;
+    position: relative;
     justify-content: center;
+    z-index: 2;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px 0 0;
+}
+
+@keyframes diagonalGlow {
+    0% {
+        transform: rotate(25deg) translateX(-100%) translateY(-100%);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.9;
+    }
+    35% {
+        transform: rotate(25deg) translateX(0%) translateY(0%);
+        opacity: 0.7;
+    }
+    55% {
+        transform: rotate(25deg) translateX(100%) translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(25deg) translateX(100%) translateY(100%);
+        opacity: 0;
+    }
 }

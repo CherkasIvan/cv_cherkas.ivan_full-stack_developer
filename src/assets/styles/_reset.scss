@@ -2,3 +2,9 @@ html,
 body {
     margin: 0;
 }
+
+.navigation-sidenav {
+    .mat-drawer-inner-container {
+        overflow: hidden !important;
+    }
+}

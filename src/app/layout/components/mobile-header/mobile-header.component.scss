@@ -1,30 +1,60 @@
+@use '../../../../assets/styles/variables' as *;
+@use '../../../../assets/styles/mixins/glassmorphism.mixin' as glass;
+
 .mobile-header {
     display: flex;
     position: sticky;
     top: 0;
     align-items: center;
-    z-index: 1000;
+    z-index: $z-mobile-menu;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(90deg, #3f51b5 0%, #2196f3 100%);
+
+    // Используем миксин для мобильного хэдера
+    @include glass.glassmorphism-mobile-header;
+    position: relative;
+
     padding: 10px 20px;
-    height: 60px;
+    height: $mobile-header-height;
+    overflow: hidden;
     color: white;
+
+    // Диагональный блик
+    &::after {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        transform: rotate(25deg);
+        z-index: 1;
+        animation: diagonalGlow $glow-animation-duration ease-in-out infinite;
+        background: $diagonal-glow-gradient;
+        width: 200%;
+        height: 200%;
+        pointer-events: none;
+        content: '';
+    }
 }
 
 .burger-menu-btn {
+    z-index: 2;
     margin-right: 20px;
     color: white;
 
     &:hover {
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: $nav-item-hover;
     }
 }
 
 .mobile-title {
     flex: 1;
+    z-index: 2;
     margin: 0;
     font-weight: 500;
     font-size: 1.2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+cv-language-switcher {
+    z-index: 2;
 }
 
 .mobile-menu-overlay {
@@ -34,36 +64,44 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1100;
+    z-index: $z-mobile-menu + 100;
     background-color: rgba(0, 0, 0, 0.5);
 }
 
 .mobile-menu {
-    animation: slideIn 0.3s ease;
+    animation: slideIn $transition-duration ease;
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(180deg, #3f51b5 0%, #2196f3 100%);
-    width: 280px;
+    background: linear-gradient(
+        135deg,
+        $mobile-menu-gradient-start,
+        $mobile-menu-gradient-end
+    );
+    width: $sidenav-width;
     height: 100%;
     overflow-y: auto;
 
-    @keyframes slideIn {
-        from {
-            transform: translateX(-100%);
-        }
-        to {
-            transform: translateX(0);
-        }
+    @include glass.custom-scrollbar;
+}
+
+// Анимации
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
     }
 }
 
-@media (max-width: 920px) {
+// Медиа-запросы
+@media (max-width: $desktop-breakpoint) {
     .page-content {
         padding: 15px;
-        min-height: calc(100vh - 60px);
+        min-height: calc(100vh - #{$mobile-header-height});
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $mobile-breakpoint) {
     .mobile-header {
         padding: 10px 15px;
         height: 56px;

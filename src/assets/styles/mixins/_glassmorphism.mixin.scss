@@ -1,154 +1,191 @@
-@mixin sidebar_glassmorphism {
-    position: relative;
-    opacity: 0.95;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+@use '../variables' as *;
 
-    // Световые эффекты
-    box-shadow:
-        3px 0 10px rgba(0, 0, 0, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+// Базовый glassmorphism
+@mixin glassmorphism($opacity: 0.1, $blur: 10px, $border-opacity: 0.2) {
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    border: 1px solid rgba(255, 255, 255, $border-opacity);
+    background: rgba(255, 255, 255, $opacity);
+}
 
-    // Границы
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    border-left: 1px solid rgba(0, 0, 0, 0.12);
+// Glassmorphism для карточек
+@mixin glassmorphism-card($opacity: 0.1, $blur: 10px, $border-opacity: 0.2) {
+    @include glassmorphism($opacity, $blur, $border-opacity);
+    box-shadow: $glass-shadow;
+}
 
-    // Градиентный фон
+// Glassmorphism для панелей
+@mixin glassmorphism-panel($opacity: 0.15, $blur: 8px, $border-opacity: 0.2) {
+    @include glassmorphism($opacity, $blur, $border-opacity);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+// Glassmorphism для кнопок
+@mixin glassmorphism-button($opacity: 0.15, $blur: 8px) {
+    @include glassmorphism($opacity, $blur, 0.2);
+    transition: all 0.2s ease;
+
+    &:hover {
+        backdrop-filter: blur($blur + 2px);
+        background: rgba(255, 255, 255, $opacity + 0.05);
+    }
+}
+
+// Glassmorphism для навигации
+@mixin glassmorphism-nav($opacity: 0.85, $blur: $light-blur) {
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    border-right: 1px solid $glass-border;
     background: linear-gradient(
-        180deg,
-        rgba(63, 81, 181, 0.9) 0%,
-        rgba(33, 150, 243, 0.9) 100% // #2196f3 с
+        135deg,
+        $sidenav-gradient-start 0%,
+        $sidenav-gradient-end 100%
     );
-    overflow: hidden;
+    color: white;
+}
 
-    &::before {
+// Glassmorphism для мобильного хэдера
+@mixin glassmorphism-mobile-header {
+    backdrop-filter: blur($light-blur);
+    -webkit-backdrop-filter: blur($light-blur);
+    border-bottom: 1px solid $glass-border;
+    background: linear-gradient(
+        135deg,
+        $sidenav-gradient-start 0%,
+        $sidenav-gradient-end 100%
+    );
+}
+
+// Стили для скроллбара
+@mixin custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: $scrollbar-width;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 2px;
+        background: $scrollbar-track;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 2px;
+        background: $scrollbar-thumb;
+
+        &:hover {
+            background: $scrollbar-thumb-hover;
+        }
+    }
+}
+
+// Диагональный глоу-эффект
+@mixin diagonal-glow {
+    &::after {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        top: -50%;
+        left: -50%;
+        transform: rotate(25deg);
         z-index: 1;
-        background: linear-gradient(
-            135deg,
-            rgba(255, 255, 255, 0.1) 0%,
-            rgba(255, 255, 255, 0) 100%
-        );
+        animation: diagonalGlow $glow-animation-duration ease-in-out infinite;
+        background: $diagonal-glow-gradient;
+        width: 200%;
+        height: 200%;
         pointer-events: none;
         content: '';
     }
 }
 
-@mixin sidebar_glassmorphism-light {
-    @include sidebar_glassmorphism;
-    box-shadow:
-        3px 0 15px rgba(63, 81, 181, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-
-    border-right: 1px solid rgba(255, 255, 255, 0.3);
-
-    background: linear-gradient(
-        180deg,
-        rgba(63, 81, 181, 0.85) 0%,
-        rgba(33, 150, 243, 0.85) 100%
-    );
+// Анимация для диагонального глоу
+@mixin diagonal-glow-animation {
+    @keyframes diagonalGlow {
+        0% {
+            transform: rotate(25deg) translateX(-100%) translateY(-100%);
+            opacity: 0;
+        }
+        15% {
+            opacity: 0.9;
+        }
+        35% {
+            transform: rotate(25deg) translateX(0%) translateY(0%);
+            opacity: 0.7;
+        }
+        55% {
+            transform: rotate(25deg) translateX(100%) translateY(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: rotate(25deg) translateX(100%) translateY(100%);
+            opacity: 0;
+        }
+    }
 }
 
-@mixin sidebar_glassmorphism-dark {
-    @include sidebar_glassmorphism;
-    box-shadow:
-        3px 0 15px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+// Эффект при наведении на пункт меню
+@mixin nav-item-hover-effect {
+    position: relative;
+    overflow: hidden;
 
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    &::after {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        transform: rotate(25deg) translateX(-100%) translateY(-100%);
+        opacity: 0;
+        transition: transform 1.2s ease;
+        background: linear-gradient(
+            115deg,
+            transparent 30%,
+            $glow-white-light 40%,
+            $glow-white-medium 45%,
+            $glow-white-strong 50%,
+            $glow-white-medium 55%,
+            $glow-white-light 60%,
+            transparent 70%
+        );
+        width: 200%;
+        height: 200%;
+        pointer-events: none;
+        content: '';
+    }
 
-    background: linear-gradient(
-        180deg,
-        rgba(63, 81, 181, 0.95) 0%,
-        rgba(33, 150, 243, 0.95) 100%
-    );
+    &:hover::after {
+        transform: rotate(25deg) translateX(100%) translateY(100%);
+        opacity: 1;
+    }
 }
 
-@mixin sidebar_glassmorphism-hover {
-    opacity: 0.98;
-    backdrop-filter: blur(25px);
-    box-shadow:
-        3px 0 20px rgba(63, 81, 181, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+// Адаптивные миксины
+@mixin mobile {
+    @media (max-width: $tablet-breakpoint) {
+        @content;
+    }
 }
 
-@mixin footer_glassmorphism {
-    opacity: 0.95;
-    backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(244, 244, 244, 0.2);
-    border-left: 1px solid rgba(244, 244, 244, 0.2);
-    border-radius: 10px 10px 0 0;
+@mixin tablet {
+    @media (min-width: $tablet-breakpoint) and (max-width: $desktop-breakpoint) {
+        @content;
+    }
 }
 
-@mixin cards_glassmorphism {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 40px;
-    background: rgba(255, 255, 255, 0.4);
+@mixin desktop {
+    @media (min-width: $desktop-breakpoint) {
+        @content;
+    }
 }
 
-@mixin cards_glassmorphism-dm {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(41, 41, 41, 0.8);
-    border-radius: 40px;
-    background: rgba(41, 41, 41, 0.6);
+// Поддержка темной темы
+@mixin dark-theme {
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
 }
 
-@mixin projects_glassmorphism {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-radius: 20px 20px 0 0;
-    background: rgba(255, 255, 255, 0.4);
-}
-
-@mixin projects_glassmorphism-dm {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(41, 41, 41, 0.8);
-    border-radius: 20px 20px 0 0;
-    background: rgba(41, 41, 41, 0.6);
-}
-
-@mixin header_glassmorphism {
-    opacity: 0.95;
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(244, 244, 244, 0.2);
-    border-left: 1px solid rgba(244, 244, 244, 0.2);
-    border-radius: 0 0 10px 10px;
-}
-
-@mixin reset_glassmorphism {
-    opacity: 1;
-    backdrop-filter: initial;
-    border-bottom: none;
-    border-left: none;
-    border-radius: 0;
-}
-
-@mixin default_button_glassmorphism {
-    backdrop-filter: blur(10px);
-    transition: 0.5s ease;
-    box-shadow: 10px 10px 20px -10px rgba(255, 255, 255, 0.2);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px 15px;
-    width: fit-content;
-    color: white;
-    font-size: 18px;
-}
-
-@mixin modal_background {
-    backdrop-filter: blur(10px);
-    transition: 0.5s ease;
-    box-shadow: 10px 10px 20px -10px rgba(253, 253, 253, 0.2);
-    background-color: rgba(0, 0, 0, 0.8);
+// Оптимизация производительности
+@mixin reduce-motion {
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
 }

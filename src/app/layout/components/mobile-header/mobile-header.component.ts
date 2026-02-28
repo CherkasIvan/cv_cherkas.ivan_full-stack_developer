@@ -1,6 +1,8 @@
 import {
     ChangeDetectionStrategy,
     Component,
+    OnInit,
+    inject,
     input,
     output,
 } from '@angular/core';
@@ -12,7 +14,7 @@ import { RouterModule } from '@angular/router';
 
 import { LanguageSwitcherComponent } from '@shared/components/language-switcher/language-switcher.component/language-switcher.component';
 
-import { NAV_ROUTES } from '@core/constant/nav-routes.const';
+import { FirebaseNavigationService } from '@core/service/firebase-navigation/firebase-navigation.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -31,7 +33,9 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./mobile-header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MobileHeaderComponent {
+export class MobileHeaderComponent implements OnInit {
+    private navigationService = inject(FirebaseNavigationService);
+
     // Входные свойства
     isMenuOpened = input<boolean>(false);
 
@@ -39,7 +43,14 @@ export class MobileHeaderComponent {
     navigate = output<void>();
     toggleMenu = output<void>();
 
-    readonly navRoutes = NAV_ROUTES;
+    // Используем данные из Firebase
+    readonly navRoutes = this.navigationService.navigationLinks;
+
+    ngOnInit() {
+        // Логируем полученные данные
+        console.log('📱 MobileHeaderComponent initialized');
+        console.log('📱 Navigation links from Firebase:', this.navRoutes());
+    }
 
     onNavigate(): void {
         this.navigate.emit();

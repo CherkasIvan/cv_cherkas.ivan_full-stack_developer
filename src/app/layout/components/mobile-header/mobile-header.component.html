@@ -9,7 +9,7 @@
     </button>
 
     <mat-menu #menu="matMenu">
-        @for (routeItem of navRoutes; track routeItem.route) {
+        @for (routeItem of navRoutes(); track routeItem.title) {
             <button
                 mat-menu-item
                 [routerLink]="routeItem.path"
