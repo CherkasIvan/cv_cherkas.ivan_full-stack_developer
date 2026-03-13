@@ -1,14 +1,49 @@
-// =============================================
-// ANIMATIONS MIXINS - ИСПРАВЛЕННАЯ ВЕРСИЯ
-// =============================================
-
-// 1. Сначала определяем ВСЕ keyframes ОДИН РАЗ
 @keyframes fade-in-out-animation {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes borderGlow {
+    0% {
+        transform: translate(-100%, -100%);
+    }
+    25% {
+        transform: translate(100%, -100%);
+    }
+    50% {
+        transform: translate(100%, 100%);
+    }
+    75% {
+        transform: translate(-100%, 100%);
+    }
+    100% {
+        transform: translate(-100%, -100%);
+    }
+}
+
+@keyframes diagonalGlow {
+    0% {
+        transform: rotate(25deg) translateX(-100%) translateY(-100%);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.9;
+    }
+    35% {
+        transform: rotate(25deg) translateX(0%) translateY(0%);
+        opacity: 0.7;
+    }
+    55% {
+        transform: rotate(25deg) translateX(100%) translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(25deg) translateX(100%) translateY(100%);
+        opacity: 0;
     }
 }
 
@@ -65,7 +100,7 @@
     }
 }
 
-// 2. Исправленный базовый миксин (убираем deprecated синтаксис)
+// 2. Базовый миксин для анимаций
 @mixin animate(
     $animation,
     $duration: 1s,
@@ -81,11 +116,9 @@
     animation-iteration-count: $iteration;
     animation-direction: $direction;
     animation-fill-mode: $fill-mode;
-    // Исправляем deprecated синтаксис - выносим свойства из вложенности
     animation-name: $animation;
 }
 
-// 3. Исправленные миксины классов (БЕЗ создания keyframes)
 @mixin fade-in-out-class($duration: 0.3s) {
     @include animate(fade-in-out-animation, $duration, ease-out);
     &.leave {
@@ -101,7 +134,12 @@
 }
 
 @mixin login-fade-in-out-class($duration: 2s) {
-    @include animate(login-fade-in-out-animation, $duration, ease-in, $fill-mode: forwards);
+    @include animate(
+        login-fade-in-out-animation,
+        $duration,
+        ease-in,
+        $fill-mode: forwards
+    );
     &.leave {
         animation-duration: $duration;
         animation-timing-function: ease-out;
@@ -128,7 +166,15 @@
 
 @mixin list-stagger-class($duration: 0.5s, $delay-step: 0.1s) {
     & > * {
-        @include animate(technology-card-fade-in-animation, $duration, ease-out, 0s, 1, normal, both);
+        @include animate(
+            technology-card-fade-in-animation,
+            $duration,
+            ease-out,
+            0s,
+            1,
+            normal,
+            both
+        );
     }
 
     @for $i from 1 through 20 {
@@ -186,7 +232,11 @@
     }
 }
 
-@mixin responsive-animation($mobile-duration, $tablet-duration, $desktop-duration) {
+@mixin responsive-animation(
+    $mobile-duration,
+    $tablet-duration,
+    $desktop-duration
+) {
     @media (max-width: 768px) {
         animation-duration: $mobile-duration;
     }

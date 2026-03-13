@@ -3,3 +3,35 @@
         z-index: 11;
     }
 }
+
+body,
+html .layout,
+.content,
+.page-content {
+    // Для вертикального скролла
+    &::-webkit-scrollbar {
+        width: 8px; // ширина вертикального скролла
+        height: 8px; // высота горизонтального
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1); // цвет трека
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border: 2px solid transparent; // для отступа
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.3); // цвет бегунка
+        background-clip: padding-box; // чтобы border не перекрывал фон
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    // Стили для угла (если есть оба скролла)
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}

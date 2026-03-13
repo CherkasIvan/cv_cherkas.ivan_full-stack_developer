@@ -1,4 +1,5 @@
 @use '../variables' as *;
+@use '../mixins/animations.mixins' as *;
 
 // Базовый glassmorphism
 @mixin glassmorphism($opacity: 0.1, $blur: 10px, $border-opacity: 0.2) {
@@ -6,6 +7,46 @@
     -webkit-backdrop-filter: blur($blur);
     border: 1px solid rgba(255, 255, 255, $border-opacity);
     background: rgba(255, 255, 255, $opacity);
+}
+
+@mixin glassmorphism-card-warm(
+    $opacity-start: 0.1,
+    $opacity-end: 0.1,
+    $blur: 20px,
+    $border-opacity: 0.2,
+    $glow-duration: 6s,
+    $glow-color: rgba(255, 255, 255, 0.5)
+) {
+    position: relative;
+    backdrop-filter: blur($blur);
+    -webkit-backdrop-filter: blur($blur);
+    box-shadow: $glass-shadow;
+    border: 1px solid rgba(255, 255, 255, $border-opacity);
+    background: linear-gradient(135deg, $start-color, $end-color);
+    overflow: hidden;
+
+    // Блик на границе
+    &::before {
+        position: absolute;
+        top: -2px;
+        right: -2px;
+        bottom: -2px;
+        left: -2px;
+        z-index: 1;
+        mask:
+            linear-gradient(#fff, #fff) content-box,
+            linear-gradient(#fff, #fff);
+        mask-composite: exclude;
+        animation: borderGlow $glow-duration linear infinite;
+        background: conic-gradient(
+            from 0deg,
+            transparent,
+            $glow-color,
+            transparent
+        );
+        pointer-events: none;
+        content: '';
+    }
 }
 
 // Glassmorphism для карточек
@@ -61,23 +102,20 @@
     &::-webkit-scrollbar {
         width: $scrollbar-width;
     }
-
     &::-webkit-scrollbar-track {
         border-radius: 2px;
         background: $scrollbar-track;
     }
-
     &::-webkit-scrollbar-thumb {
         border-radius: 2px;
         background: $scrollbar-thumb;
-
         &:hover {
             background: $scrollbar-thumb-hover;
         }
     }
 }
 
-// Диагональный глоу-эффект
+// Диагональный глоу-эффект (использует diagonalGlow из animations.mixins)
 @mixin diagonal-glow {
     &::after {
         position: absolute;
@@ -91,31 +129,6 @@
         height: 200%;
         pointer-events: none;
         content: '';
-    }
-}
-
-// Анимация для диагонального глоу
-@mixin diagonal-glow-animation {
-    @keyframes diagonalGlow {
-        0% {
-            transform: rotate(25deg) translateX(-100%) translateY(-100%);
-            opacity: 0;
-        }
-        15% {
-            opacity: 0.9;
-        }
-        35% {
-            transform: rotate(25deg) translateX(0%) translateY(0%);
-            opacity: 0.7;
-        }
-        55% {
-            transform: rotate(25deg) translateX(100%) translateY(100%);
-            opacity: 0;
-        }
-        100% {
-            transform: rotate(25deg) translateX(100%) translateY(100%);
-            opacity: 0;
-        }
     }
 }
 
@@ -159,13 +172,11 @@
         @content;
     }
 }
-
 @mixin tablet {
     @media (min-width: $tablet-breakpoint) and (max-width: $desktop-breakpoint) {
         @content;
     }
 }
-
 @mixin desktop {
     @media (min-width: $desktop-breakpoint) {
         @content;

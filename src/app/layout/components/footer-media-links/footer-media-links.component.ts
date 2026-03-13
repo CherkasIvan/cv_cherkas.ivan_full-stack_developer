@@ -1,19 +1,15 @@
 import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    Component,
-} from '@angular/core';
-
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
     selector: 'cv-footer-media-links',
     standalone: true,
-    imports: [CommonModule,],
-    providers: [],
+    imports: [CommonModule, MatIconModule, MatButtonModule, MatTooltipModule],
     templateUrl: './footer-media-links.component.html',
-    styleUrl: './footer-media-links.component.scss',
+    styleUrls: ['./footer-media-links.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FooterMediaLinksComponent  {
-
-}
+export class FooterMediaLinksComponent {}

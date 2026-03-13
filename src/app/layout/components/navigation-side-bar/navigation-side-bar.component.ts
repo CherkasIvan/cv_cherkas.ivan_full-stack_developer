@@ -7,6 +7,8 @@ import { Router, RouterModule } from '@angular/router';
 
 import { LanguageSwitcherComponent } from '@shared/components/language-switcher/language-switcher.component/language-switcher.component';
 
+import { NavigationChildLink } from '@core/interfaces/navigation/navigation-child-link.interface';
+import { NavigationLink } from '@core/interfaces/navigation/navigation-link.interface';
 import { FirebaseNavigationService } from '@core/service/firebase-navigation/firebase-navigation.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -26,43 +28,67 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     styleUrls: ['./navigation-side-bar.component.scss'],
 })
 export class NavigationSideBarComponent implements OnInit {
-    navigate = output<void>();
+    public readonly navigate = output<void>();
 
-    private navigationService = inject(FirebaseNavigationService);
-    private router = inject(Router);
-    private translate = inject(TranslateService);
+    private readonly navigationService = inject(FirebaseNavigationService);
+    private readonly router = inject(Router);
+    private readonly translate = inject(TranslateService);
 
-    // Сигналы из сервиса
-    readonly navigationLinks = this.navigationService.navigationLinks;
+    public readonly navigationLinks = this.navigationService.navigationLinks;
 
-    // Состояние для открытых панелей
-    expandedPanels = new Set<string>();
+    public expandedPanels = new Set<string>();
 
-    ngOnInit() {
-        // Подписываемся на изменения языка если нужно
+    public ngOnInit(): void {
         this.translate.onLangChange.subscribe(() => {
-            // Обновляем что-то если нужно
+            // при смене языка можно обновить заголовки, если нужно
         });
+
+        // Автоматически открываем панели, если дочерний роут активен
+        setTimeout(() => {
+            this.navigationLinks().forEach((link) => {
+                if (link.hasChildren) {
+                    const children = this.getChildren(link.id);
+                    if (this.hasActiveChild(children, link.path)) {
+                        this.expandedPanels.add(link.id);
+                    }
+                }
+            });
+        }, 500);
     }
 
-    onNavigate(): void {
+    public onNavigate(): void {
         this.navigate.emit();
     }
 
-    togglePanel(linkId: string): void {
-        if (this.expandedPanels.has(linkId)) {
-            this.expandedPanels.delete(linkId);
-        } else {
-            this.expandedPanels.add(linkId);
-        }
+    public togglePanel(linkId: string): void {
+        this.expandedPanels.has(linkId)
+            ? this.expandedPanels.delete(linkId)
+            : this.expandedPanels.add(linkId);
     }
 
-    isPanelExpanded(linkId: string): boolean {
+    public isPanelExpanded(linkId: string): boolean {
         return this.expandedPanels.has(linkId);
     }
 
-    navigateToRoute(path: string): void {
-        this.router.navigate([path]);
-        this.onNavigate();
+    public hasActiveChild(
+        children: NavigationChildLink[],
+        parentPath: string,
+    ): boolean {
+        const currentUrl = this.router.url;
+        return children.some((child) => {
+            const fullPath = `/${parentPath}/${child.path}`.replace(
+                /\/+/g,
+                '/',
+            );
+            return (
+                currentUrl === fullPath ||
+                currentUrl.startsWith(fullPath + '/') ||
+                currentUrl.startsWith(fullPath + '?')
+            );
+        });
+    }
+
+    public getChildren(linkId: string): NavigationChildLink[] {
+        return this.navigationService.getChildrenForParent(linkId);
     }
 }

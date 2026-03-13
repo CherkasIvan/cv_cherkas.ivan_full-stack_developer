@@ -9,13 +9,15 @@
 
     <mat-nav-list class="nav-list">
         @for (link of navigationLinks(); track link.id) {
-            @if (link.hasChildren && link.children.length) {
-                <!-- Expansion Panel для ссылок с детьми -->
+            @if (link.hasChildren) {
                 <mat-expansion-panel
-                    [expanded]="isPanelExpanded(link.id!)"
-                    (opened)="togglePanel(link.id!)"
-                    (closed)="togglePanel(link.id!)"
+                    [expanded]="isPanelExpanded(link.id)"
+                    (opened)="togglePanel(link.id)"
+                    (closed)="togglePanel(link.id)"
                     class="nav-expansion-panel"
+                    [class.has-active-child]="
+                        hasActiveChild(getChildren(link.id), link.path)
+                    "
                 >
                     <mat-expansion-panel-header>
                         <mat-panel-title class="panel-title">
@@ -24,18 +26,21 @@
                                     {{ link.icon }}
                                 </mat-icon>
                             }
-                            <span>{{ link.translationKey | translate }}</span>
+                            <span>
+                                {{ link.translationKey | translate }}
+                            </span>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
 
-                    <!-- Дочерние ссылки -->
-                    @for (child of link.children; track child.id) {
+                    @for (child of getChildren(link.id); track child.id) {
                         <a
                             mat-list-item
-                            [routerLink]="child.path"
+                            [routerLink]="[link.path, child.path]"
                             routerLinkActive="active"
+                            #rla="routerLinkActive"
                             (click)="onNavigate()"
                             class="child-link"
+                            [class.active]="rla.isActive"
                         >
                             <span matListItemTitle>
                                 {{ child.translationKey | translate }}
@@ -44,12 +49,13 @@
                     }
                 </mat-expansion-panel>
             } @else {
-                <!-- Обычная ссылка -->
                 <a
                     mat-list-item
-                    [routerLink]="link.path"
+                    [routerLink]="'/' + link.path"
                     routerLinkActive="active"
+                    #rla="routerLinkActive"
                     (click)="onNavigate()"
+                    [class.active]="rla.isActive"
                 >
                     @if (link.icon) {
                         <mat-icon matListItemIcon>{{ link.icon }}</mat-icon>

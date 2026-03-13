@@ -1,11 +1,9 @@
 export interface NavigationChildLink {
-    id?: string;
+    id: string;
     title: string;
     translationKey: string;
     path: string;
-    parentId: string;
+    icon?: string;
     order: number;
-    isActive?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
+    parentId: string;
 }

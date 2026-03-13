@@ -11,10 +11,9 @@ import {
     isDevMode,
     provideZoneChangeDetection,
 } from '@angular/core';
-import { getAnalytics, provideAnalytics } from '@angular/fire/analytics';
+// Firebase imports - исправляем порядок импортов
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getDatabase, provideDatabase } from '@angular/fire/database';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -27,7 +26,6 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 import { environment } from '@env/environment';
 
-import { firebaseConfig } from '@core/constant/firebase.const';
 import { createTranslateLoader } from '@core/service/translate-loader-creator/translate-loader-creator.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
@@ -50,12 +48,14 @@ export const appConfig: ApplicationConfig = {
             provide: LocationStrategy,
             useClass: HashLocationStrategy,
         },
+
+        // Инициализация Firebase - ВАЖЕН ПОРЯДОК
+
         provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideAnalytics(() => getAnalytics()),
-        provideAuth(() => getAuth()),
         provideFirestore(() => getFirestore()),
-        provideDatabase(() => getDatabase()),
         provideStorage(() => getStorage()),
+        provideAuth(() => getAuth()),
+
         importProvidersFrom(
             TranslateModule.forRoot({
                 fallbackLang: 'en',

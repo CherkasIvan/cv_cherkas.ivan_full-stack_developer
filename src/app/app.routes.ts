@@ -18,6 +18,11 @@ export const routes: Routes = [
     },
     {
         path: AppRoutes.PROJECTS,
+        redirectTo: `${AppRoutes.PROJECTS}/public`,
+        pathMatch: 'full',
+    },
+    {
+        path: `${AppRoutes.PROJECTS}/:type`,
         loadComponent: () =>
             import('./pages/projects/projects-page.component').then(
                 (m) => m.ProjectsPageComponent,
@@ -25,7 +30,15 @@ export const routes: Routes = [
         data: { title: 'Проекты' },
     },
     {
-        path: AppRoutes.TECHNOLOGIES,
+        path: `${AppRoutes.TECHNOLOGIES}/frontend`,
+        loadComponent: () =>
+            import('./pages/technologies/technologies-page.component').then(
+                (m) => m.TechnologiesPageComponent,
+            ),
+        pathMatch: 'full',
+    },
+    {
+        path: `${AppRoutes.TECHNOLOGIES}/:type`,
         loadComponent: () =>
             import('./pages/technologies/technologies-page.component').then(
                 (m) => m.TechnologiesPageComponent,
@@ -33,7 +46,15 @@ export const routes: Routes = [
         data: { title: 'Технологии' },
     },
     {
-        path: AppRoutes.EXPERIENCE,
+        path: `${AppRoutes.EXPERIENCE}/work_experience`,
+        loadComponent: () =>
+            import('./pages/experience/experience-page.component').then(
+                (m) => m.ExperiencePageComponent,
+            ),
+        pathMatch: 'full',
+    },
+    {
+        path: `${AppRoutes.EXPERIENCE}/:type`,
         loadComponent: () =>
             import('./pages/experience/experience-page.component').then(
                 (m) => m.ExperiencePageComponent,
@@ -41,7 +62,15 @@ export const routes: Routes = [
         data: { title: 'Опыт работы' },
     },
     {
-        path: AppRoutes.DOWNLOAD_CV,
+        path: `${AppRoutes.DOWNLOAD_CV}/new_cv`,
+        loadComponent: () =>
+            import('./pages/download-cv/download-cv.component').then(
+                (m) => m.DownloadCvComponent,
+            ),
+        pathMatch: 'full',
+    },
+    {
+        path: `${AppRoutes.DOWNLOAD_CV}/:type`,
         loadComponent: () =>
             import('./pages/download-cv/download-cv.component').then(
                 (m) => m.DownloadCvComponent,

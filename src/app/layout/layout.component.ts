@@ -6,9 +6,11 @@ import {
     ViewChild,
     computed,
     effect,
+    inject,
     signal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { LogLevel, setLogLevel } from '@angular/fire';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
@@ -19,8 +21,10 @@ import { RouterOutlet } from '@angular/router';
 import { Observable, debounceTime, fromEvent } from 'rxjs';
 
 import { BREAKPOINTS } from '@core/constant/breakpoints.const';
+import { FirebaseNavigationService } from '@core/service/firebase-navigation/firebase-navigation.service';
 import { TranslateModule } from '@ngx-translate/core';
 
+import { LayoutFooterComponent } from './components/layout-footer/layout-footer.component';
 import { MobileHeaderComponent } from './components/mobile-header/mobile-header.component';
 import { NavigationSideBarComponent } from './components/navigation-side-bar/navigation-side-bar.component';
 
@@ -57,6 +61,7 @@ const SEASON_INFO_OFFSET: number = 20;
         MatTooltipModule,
         NavigationSideBarComponent,
         MobileHeaderComponent,
+        LayoutFooterComponent,
         TranslateModule,
         MatMenuModule,
     ],
@@ -82,10 +87,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
     private imageInterval?: number;
     private preloadImages: HTMLImageElement[] = [];
     private wasMobile: boolean;
+    private navigationService = inject(FirebaseNavigationService);
 
     // Computed signals
     public readonly isMobile = computed<boolean>(() => {
-        return this.windowWidth() < BREAKPOINTS.MOBILE;
+        return this.windowWidth() < BREAKPOINTS.TABLET;
     });
 
     public readonly computedSideNavWidth = computed<number>(() => {
@@ -95,12 +101,21 @@ export class LayoutComponent implements OnInit, OnDestroy {
     constructor() {
         this.wasMobile = this.isMobile();
         this.initializeResizeListener();
+
+        effect(() => {
+            const width = this.computedSideNavWidth();
+            document.documentElement.style.setProperty(
+                '--sidenav-width',
+                `${width}px`,
+            );
+        });
     }
 
     public ngOnInit(): void {
         this.determineSeason();
         this.loadSeasonImages();
         this.startImageRotation();
+        this.navigationService.load();
     }
 
     public ngOnDestroy(): void {
@@ -155,7 +170,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
             const currentWidth: number = window.innerWidth;
             this.windowWidth.set(currentWidth);
 
-            const nowIsMobile: boolean = currentWidth < BREAKPOINTS.MOBILE;
+            const nowIsMobile: boolean = currentWidth < BREAKPOINTS.TABLET;
 
             if (nowIsMobile && !this.wasMobile) {
                 this.isSideNavOpened.set(false);

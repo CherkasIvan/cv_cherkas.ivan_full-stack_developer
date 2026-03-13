@@ -10,7 +10,7 @@
         "HOME": "Главная",
         "PROJECTS": "Проекты",
         "TECHNOLOGIES": "Технологии",
-        "EXPERIENCE": "Опыт работы",
+        "EXPERIENCE": "Опыт",
         "DOWNLOAD_CV": "Скачать CV"
     },
 
@@ -19,12 +19,34 @@
         "RU": "Русский",
         "SWITCH_LANGUAGE": "Переключить язык"
     },
+    "NAV": {
+        "CHILDREN": {
+            "ALL_PROJECTS": "Все проекты",
+            "PUBLIC_PROJECTS": "Публичные проекты",
+            "PRIVATE_PROJECTS": "Приватные проекты",
+            "FRONTEND": "Фронтенд",
+            "BACKEND": "Бекэнд",
+            "OTHER_SKILLS": "Остальные навыки",
+            "WORK_EXPERIENCE": "Опыт работы",
+            "EDUCATION": "Образование и курсы",
+            "OLD_VERSION_CV": "Стараая версия CV",
+            "NEW_VERSION_CV": "Новая версия CV"
+        }
+    },
     "EXPERIENCE": {
-        "TITLE": "Опыт работы",
-        "TECHNOLOGIES": "Технологии",
-        "ACHIEVEMENTS": "Достижения",
-        "PERIOD": "Период",
-        "SHOW_MORE": "Подробнее",
-        "SHOW_LESS": "Скрыть"
+        "WORK-TITLE": "Опыт работы",
+        "WORK": {
+            "TITLE": "Опыт работы",
+            "TECHNOLOGIES": "Технологии",
+            "ACHIEVEMENTS": "Достижения",
+            "PERIOD": "Период",
+            "SHOW_MORE": "Подробнее",
+            "SHOW_LESS": "Скрыть",
+            "POSITION": {
+                "TMS": {
+                    "DESCRIPTION": "Прошол с отличием  обучение frontend и в дальнейшем преподавал HTML/SCSS/JS в школe TMS"
+                }
+            }
+        }
     }
 }

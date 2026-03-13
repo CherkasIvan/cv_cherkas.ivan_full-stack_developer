@@ -4,13 +4,17 @@ $tablet-breakpoint: 768px;
 $desktop-breakpoint: 1024px;
 $large-breakpoint: 1280px;
 
-// Sizes
+// Константы
 $sidenav-width: 280px;
 $toggle-button-offset: 20px;
 $edge-blur-amount: 1.5rem;
 $bottom-panel-bottom: 20px;
 $bottom-panel-offset: 20px;
 $mobile-header-height: 60px;
+$blur-intensity: 4px;
+$blur-spread: 1rem;
+$transition-duration: 0.3s;
+$mobile-breakpoint: 768px;
 
 // Durations
 $transition-duration: 0.3s;
@@ -61,6 +65,32 @@ $scrollbar-width: 4px;
 $scrollbar-track: rgba(255, 255, 255, 0.05);
 $scrollbar-thumb: rgba(255, 255, 255, 0.2);
 $scrollbar-thumb-hover: rgba(255, 255, 255, 0.3);
+
+// ========== ПЕРЕМЕННЫЕ ПРОЗРАЧНОСТИ ==========
+$opacity-start: 0.05;
+$opacity-end: 0.05;
+$blur: 12px;
+$border-opacity: 0.15;
+
+// ========== ГОЛУБО-РОЗОВАЯ ГАММА ==========
+$blue-pink-start: rgba(0, 191, 255, 0.1);
+$blue-pink-end: rgba(255, 105, 180, 0.1);
+$blue-pink-border: rgba(255, 255, 255, 0.2);
+$blue-pink-shadow: 0 8px 25px rgba(0, 191, 255, 0.2);
+
+$start-color: rgba(0, 191, 255, $opacity-start);
+$end-color: rgba(255, 105, 180, $opacity-end);
+$border-color: rgba(255, 255, 255, $border-opacity);
+
+// ========== ЖЕЛТО-РОЗОВАЯ ГАММА ==========
+$warm-glow-start: rgba(255, 215, 0, 0.1);
+$warm-glow-end: rgba(255, 105, 180, 0.1);
+$warm-border: rgba(255, 200, 150, 0.3);
+$warm-shadow: 0 8px 20px rgba(255, 160, 0, 0.2);
+
+$start: rgba(255, 215, 0, $opacity-start);
+$end: rgba(255, 105, 180, $opacity-end);
+$border: rgba(255, 200, 150, $border-opacity);
 
 // Gradients
 $diagonal-glow-gradient: linear-gradient(

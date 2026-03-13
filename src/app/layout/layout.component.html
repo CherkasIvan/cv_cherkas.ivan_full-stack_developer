@@ -66,18 +66,6 @@
                     </mat-icon>
                 </button>
 
-                <!-- Кнопка для ручной смены картинки (для тестирования) -->
-                <button
-                    mat-mini-fab
-                    color="accent"
-                    class="next-image-btn"
-                    (click)="nextImageManually()"
-                    matTooltip="Следующее изображение"
-                    [style.left.px]="computedSideNavWidth() + 80"
-                >
-                    <mat-icon>photo_camera</mat-icon>
-                </button>
-
                 <!-- Основной контент -->
                 <div class="page-content">
                     <router-outlet />
@@ -103,12 +91,8 @@
             </div>
         </div>
     }
+    <cv-layout-footer
+        [season]="currentSeason"
+        (next)="nextImageManually()"
+    />
 </main>
-
-<div
-    class="season-info"
-    [style.left.px]="computedSideNavWidth() + 20"
->
-    <mat-icon>filter_drama</mat-icon>
-    <span>{{ currentSeason | translate }}</span>
-</div>

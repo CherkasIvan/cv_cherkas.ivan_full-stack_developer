@@ -1,0 +1,66 @@
+<h2 mat-dialog-title>{{ data.company }} — {{ data.positionStart }}</h2>
+
+<mat-dialog-content>
+    @if (data.logo) {
+        <div class="company-logo">
+            <img
+                [src]="data.logo"
+                alt="Логотип компании"
+            />
+        </div>
+    }
+
+    <p>
+        <strong>{{ 'EXPERIENCE.PERIOD' | translate }}:</strong>
+        {{ formatPeriod(data) }}
+    </p>
+
+    <p>{{ data.description | translate }}</p>
+
+    @if (data.technologies?.length) {
+        <h3>
+            {{ 'EXPERIENCE.WORK.TECHNOLOGIES' | translate }} ({{
+                data.technologies?.length
+            }})
+        </h3>
+        <mat-chip-set>
+            @for (tech of data.technologies; track tech) {
+                <mat-chip>{{ tech }}</mat-chip>
+            }
+        </mat-chip-set>
+    }
+
+    @if (data.achievements?.length) {
+        <h3>
+            {{ 'EXPERIENCE.WORK.ACHIEVEMENTS' | translate }} ({{
+                data.achievements?.length
+            }})
+        </h3>
+        <ul>
+            @for (achievement of data.achievements; track achievement) {
+                <li>{{ achievement }}</li>
+            }
+        </ul>
+    }
+
+    <!-- @if (data.images?.length) {
+        <h3>{{ 'EXPERIENCE.GALLERY' | translate }}</h3>
+        <div class="image-grid">
+            @for (img of data.images; track img) {
+                <img
+                    [src]="img"
+                    alt="Изображение проекта"
+                />
+            }
+        </div>
+    } -->
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button
+        mat-button
+        mat-dialog-close
+    >
+        {{ 'COMMON.CLOSE' | translate }}
+    </button>
+</mat-dialog-actions>

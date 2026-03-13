@@ -1,18 +1,10 @@
-import { AppRoutes } from '@core/enum/routes.enum';
-
-import { NavigationChildLink } from './navigation-child-link.interface';
-
 export interface NavigationLink {
-    id?: string;
+    id: string;
     title: string;
     translationKey: string;
     path: string;
-    icon: string;
+    icon?: string;
     order: number;
-    hasChildren?: boolean;
-    children?: NavigationChildLink[];
-    isActive?: boolean;
-    parentId?: string | null;
-    createdAt?: Date;
-    updatedAt?: Date;
+    hasChildren: boolean;
+    parentId: string | null;
 }

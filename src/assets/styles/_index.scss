@@ -1,4 +1,5 @@
 @use './reset';
 @use './variables';
 @use './base';
+@use './mixins/animations.mixins';
 @use './mixins/glassmorphism.mixin';

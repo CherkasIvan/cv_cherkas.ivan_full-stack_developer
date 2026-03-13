@@ -6,16 +6,46 @@
         "HIDE_NAVIGATION": "Hide navigation",
         "MENU": "Menu"
     },
-    "ROUTES": {
-        "HOME": "Home",
-        "PROJECTS": "Projects",
-        "TECHNOLOGIES": "Technologies",
-        "EXPERIENCE": "Experience",
-        "DOWNLOAD_CV": "Download CV"
-    },
     "LANGUAGE": {
         "EN": "English",
         "RU": "Russian",
         "SWITCH_LANGUAGE": "Switch language"
+    },
+    "NAV": {
+        "PARENT": {
+            "HOME": "Home",
+            "PROJECTS": "Projects",
+            "TECHNOLOGIES": "Technologies",
+            "EXPERIENCE": "Experience",
+            "DOWNLOAD_CV": "Download CV"
+        },
+        "CHILDREN": {
+            "ALL_PROJECTS": "All projects",
+            "PUBLIC_PROJECTS": "Public projects",
+            "PRIVATE_PROJECTS": "Private projects",
+            "FRONTEND": "Frontend",
+            "BACKEND": "Backend",
+            "OTHER_SKILLS": "Other skills",
+            "WORK_EXPERIENCE": "Work experience",
+            "EDUCATION": "Education and courses",
+            "OLD_VERSION_CV": "Old version of CV",
+            "NEW_VERSION_CV": "New version of CV"
+        }
+    },
+    "EXPERIENCE": {
+        "WORK-TITLE": "Work experience",
+        "WORK": {
+            "TECHNOLOGIES": "Technologies",
+            "ACHIEVEMENTS": "Achievements",
+            "PERIOD": "Period",
+            "SHOW_MORE": "Show more",
+            "SHOW_LESS": "Hide",
+            "TITLE": "Work experience",
+            "POSITION": {
+                "TMS": {
+                    "DESCRIPTION": "I completed my frontend training with honors and later taught HTML/SCSS/JS at TMS School."
+                }
+            }
+        }
     }
 }

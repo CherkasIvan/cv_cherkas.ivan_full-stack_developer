@@ -1,0 +1,34 @@
+.layout-footer {
+    display: flex;
+    position: fixed;
+    bottom: 20px;
+    left: var(--sidenav-width, 0px); // ← используем CSS-переменную
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1111;
+    transition: left 0.3s ease;
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: calc(100% - var(--sidenav-width, 0px));
+    pointer-events: none;
+
+    > * {
+        pointer-events: auto;
+    }
+
+    .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .footer-right {
+    }
+
+    @media (max-width: 768px) {
+        right: 10px;
+        bottom: 10px;
+        left: 10px !important;
+        width: auto;
+    }
+}

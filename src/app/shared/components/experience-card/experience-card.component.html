@@ -2,71 +2,109 @@
     class="experience-card"
     appearance="outlined"
 >
-    <mat-card-header>
-        <div
-            class="company-logo"
-            [style.backgroundColor]="'#3f51b5'"
-        >
-            <mat-icon>business</mat-icon>
-        </div>
-        <mat-card-title>{{ experience.company }}</mat-card-title>
-        <mat-card-subtitle>{{ experience.position }}</mat-card-subtitle>
-    </mat-card-header>
+    <div class="card-content">
+        <mat-card-header>
+            <div class="company-logo">
+                <mat-icon>{{ experience().logo || 'business' }}</mat-icon>
+            </div>
+            <mat-card-title>{{ experience().company }}</mat-card-title>
+            <mat-card-subtitle>{{ positionDisplay() }}</mat-card-subtitle>
+        </mat-card-header>
 
-    <mat-card-content>
-        <div class="period">
-            <mat-icon>calendar_today</mat-icon>
-            <span>{{ experience.period }}</span>
-        </div>
+        <mat-card-content>
+            <div class="period">
+                <span>{{ period() }}</span>
+            </div>
 
-        <p class="description">{{ experience.description }}</p>
+            <p class="description">
+                {{ experience().description | translate }}
+            </p>
 
-        <div class="technologies">
-            <h4>Технологии:</h4>
-            <mat-chip-set>
-                @for (tech of experience.technologies; track tech) {
-                    <mat-chip>{{ tech }}</mat-chip>
-                }
-            </mat-chip-set>
-        </div>
+            <!-- Панель технологий -->
+            @if (experience().technologies?.length) {
+                <mat-expansion-panel
+                    (opened)="techPanelExpanded.set(true)"
+                    (closed)="techPanelExpanded.set(false)"
+                    [expanded]="techPanelExpanded()"
+                    hideToggle
+                    class="technologies-panel"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon>code</mat-icon>
+                            <span>
+                                {{
+                                    'EXPERIENCE.WORK.TECHNOLOGIES' | translate
+                                }}
+                                ({{ experience().technologies?.length }})
+                            </span>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <mat-icon>
+                                {{
+                                    techPanelExpanded()
+                                        ? 'expand_less'
+                                        : 'expand_more'
+                                }}
+                            </mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-        <mat-expansion-panel
-            (opened)="isExpanded = true"
-            (closed)="isExpanded = false"
-            hideToggle
-            class="achievements-panel"
-        >
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <mat-icon>emoji_events</mat-icon>
-                    <span>
-                        Достижения ({{ experience.achievements.length }})
-                    </span>
-                </mat-panel-title>
-                <mat-panel-description>
-                    <mat-icon>
-                        {{ isExpanded ? 'expand_less' : 'expand_more' }}
-                    </mat-icon>
-                </mat-panel-description>
-            </mat-expansion-panel-header>
+                    <mat-chip-set>
+                        @for (tech of experience().technologies; track tech) {
+                            <mat-chip>{{ tech }}</mat-chip>
+                        }
+                    </mat-chip-set>
+                </mat-expansion-panel>
+            }
 
-            <ul class="achievements-list">
-                @for (
-                    achievement of experience.achievements;
-                    track achievement
-                ) {
-                    <li>{{ achievement }}</li>
-                }
-            </ul>
-        </mat-expansion-panel>
-    </mat-card-content>
+            <!-- Панель достижений -->
+            @if (experience().achievements?.length) {
+                <mat-expansion-panel
+                    (opened)="achievementsPanelExpanded.set(true)"
+                    (closed)="achievementsPanelExpanded.set(false)"
+                    [expanded]="achievementsPanelExpanded()"
+                    hideToggle
+                    class="achievements-panel"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <mat-icon>emoji_events</mat-icon>
+                            <span>
+                                {{
+                                    'EXPERIENCE.WORK.ACHIEVEMENTS' | translate
+                                }}
+                                ({{ experience().achievements?.length }})
+                            </span>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <mat-icon>
+                                {{
+                                    achievementsPanelExpanded()
+                                        ? 'expand_less'
+                                        : 'expand_more'
+                                }}
+                            </mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
 
-    <mat-card-actions align="end">
+                    <ul class="achievements-list">
+                        @for (
+                            achievement of experience().achievements;
+                            track achievement
+                        ) {
+                            <li>{{ achievement }}</li>
+                        }
+                    </ul>
+                </mat-expansion-panel>
+            }
+        </mat-card-content>
+
         <button
             mat-button
-            (click)="toggleReadMore()"
+            (click)="openWorkExperienceDialog()"
         >
-            {{ isExpanded ? 'Скрыть' : 'Подробнее' }}
+            Show more
         </button>
-    </mat-card-actions>
+    </div>
 </mat-card>
